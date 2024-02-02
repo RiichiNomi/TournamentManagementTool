@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dj7jf4cdfcxsm"]
 
-[ext_resource type="Script" path="res://scene/UmaContainer.gd" id="1_tnmgd"]
-[ext_resource type="Script" path="res://scene/NumericLineEdit.gd" id="2_dqnh2"]
+[ext_resource type="Script" path="res://scene/widget/UmaContainer.gd" id="1_tnmgd"]
+[ext_resource type="Script" path="res://scene/widget/NumericLineEdit.gd" id="2_dqnh2"]
 
 [node name="UmaContainer" type="HBoxContainer"]
 script = ExtResource("1_tnmgd")

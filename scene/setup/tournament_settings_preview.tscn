@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://848pympku5cr"]
 
-[ext_resource type="PackedScene" uid="uid://cl8xmaaqgbpap" path="res://scene/widget/setting_display.tscn" id="1_amb0s"]
-[ext_resource type="Script" path="res://scene/tournament_settings_preview.gd" id="1_cfs4w"]
-[ext_resource type="PackedScene" uid="uid://bivo75jlpqqx8" path="res://scene/widget/uma_display.tscn" id="2_xwl0h"]
-[ext_resource type="Script" path="res://scene/PlayerTable.gd" id="4_0fqga"]
+[ext_resource type="Script" path="res://scene/setup/tournament_settings_preview.gd" id="1_is60x"]
+[ext_resource type="PackedScene" uid="uid://cl8xmaaqgbpap" path="res://scene/widget/setting_display.tscn" id="2_emjvx"]
+[ext_resource type="PackedScene" uid="uid://bivo75jlpqqx8" path="res://scene/widget/uma_display.tscn" id="3_17m5a"]
+[ext_resource type="Script" path="res://scene/widget/PlayerTable.gd" id="4_4kyld"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -12,7 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_cfs4w")
+script = ExtResource("1_is60x")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -47,53 +47,71 @@ theme_override_constants/margin_bottom = 10
 
 [node name="Label" type="Label" parent="HBoxContainer/SettingsPreview/Title"]
 layout_mode = 2
+text = "Settings Preview"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TournamentName" type="MarginContainer" parent="HBoxContainer/SettingsPreview"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/SettingsPreview/TournamentName"]
+layout_mode = 2
 text = "Preview"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GameType" parent="HBoxContainer/SettingsPreview" instance=ExtResource("1_amb0s")]
+[node name="GameType" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_emjvx")]
 layout_mode = 2
 
-[node name="UmaType" parent="HBoxContainer/SettingsPreview" instance=ExtResource("1_amb0s")]
+[node name="UmaType" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_emjvx")]
 layout_mode = 2
 
-[node name="FixedUma" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_xwl0h")]
+[node name="FixedUma" parent="HBoxContainer/SettingsPreview" instance=ExtResource("3_17m5a")]
 layout_mode = 2
 
-[node name="FloatingUma1" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_xwl0h")]
+[node name="FloatingUma1" parent="HBoxContainer/SettingsPreview" instance=ExtResource("3_17m5a")]
 layout_mode = 2
 
-[node name="FloatingUma2" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_xwl0h")]
+[node name="FloatingUma2" parent="HBoxContainer/SettingsPreview" instance=ExtResource("3_17m5a")]
 layout_mode = 2
 
-[node name="FloatingUma3" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_xwl0h")]
+[node name="FloatingUma3" parent="HBoxContainer/SettingsPreview" instance=ExtResource("3_17m5a")]
 layout_mode = 2
 
-[node name="StartPoints" parent="HBoxContainer/SettingsPreview" instance=ExtResource("1_amb0s")]
+[node name="TiebreakStrategy" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_emjvx")]
 layout_mode = 2
 
-[node name="ReturnPoints" parent="HBoxContainer/SettingsPreview" instance=ExtResource("1_amb0s")]
+[node name="StartPoints" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_emjvx")]
 layout_mode = 2
 
-[node name="Oka" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_xwl0h")]
+[node name="ReturnPoints" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_emjvx")]
 layout_mode = 2
 
-[node name="PairingSystem" parent="HBoxContainer/SettingsPreview" instance=ExtResource("1_amb0s")]
+[node name="Oka" parent="HBoxContainer/SettingsPreview" instance=ExtResource("3_17m5a")]
 layout_mode = 2
 
-[node name="TimePerRound" parent="HBoxContainer/SettingsPreview" instance=ExtResource("1_amb0s")]
+[node name="PairingSystem" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_emjvx")]
 layout_mode = 2
 
-[node name="ScorePerThousand" parent="HBoxContainer/SettingsPreview" instance=ExtResource("1_amb0s")]
+[node name="TimePerRound" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_emjvx")]
 layout_mode = 2
 
-[node name="StartShuugi" parent="HBoxContainer/SettingsPreview" instance=ExtResource("1_amb0s")]
+[node name="RiichiSticks" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_emjvx")]
 layout_mode = 2
 
-[node name="EndShuugi" parent="HBoxContainer/SettingsPreview" instance=ExtResource("1_amb0s")]
+[node name="GeneratePairings" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_emjvx")]
 layout_mode = 2
 
-[node name="ScorePerShuugi" parent="HBoxContainer/SettingsPreview" instance=ExtResource("1_amb0s")]
+[node name="ScorePerThousand" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_emjvx")]
+layout_mode = 2
+
+[node name="StartShuugi" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_emjvx")]
+layout_mode = 2
+
+[node name="EndShuugi" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_emjvx")]
+layout_mode = 2
+
+[node name="ScorePerShuugi" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_emjvx")]
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/SettingsPreview"]
@@ -125,7 +143,7 @@ hide_folding = true
 enable_recursive_folding = false
 hide_root = true
 select_mode = 1
-script = ExtResource("4_0fqga")
+script = ExtResource("4_4kyld")
 
 [node name="Controls" type="HBoxContainer" parent="HBoxContainer/SettingsPreview"]
 layout_mode = 2

@@ -2,7 +2,7 @@ extends Control
 
 @onready var new_tournament_button : Button = $VBoxContainer/NewTournamentButton
 
-var TournamentSettingsScene = preload("res://scene/tournament_settings.tscn")
+var TournamentSettingsScene = preload("res://scene/setup/tournament_settings.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://dupoigxcsxv20"]
 
-[ext_resource type="Script" path="res://scene/tournament_settings.gd" id="1_kaooh"]
-[ext_resource type="PackedScene" uid="uid://dj7jf4cdfcxsm" path="res://scene/uma_container.tscn" id="2_kp1n0"]
-[ext_resource type="Script" path="res://scene/PlayerTable.gd" id="3_fo0gy"]
-[ext_resource type="Script" path="res://scene/NumericLineEdit.gd" id="3_jlqw6"]
-[ext_resource type="Script" path="res://scene/PlayersPane.gd" id="3_ocxb7"]
+[ext_resource type="Script" path="res://scene/setup/tournament_settings.gd" id="1_g6f8p"]
+[ext_resource type="PackedScene" uid="uid://dj7jf4cdfcxsm" path="res://scene/widget/uma_container.tscn" id="2_fb0oh"]
+[ext_resource type="Script" path="res://scene/widget/NumericLineEdit.gd" id="3_ng8op"]
+[ext_resource type="Script" path="res://scene/widget/PlayersPane.gd" id="4_kxprx"]
+[ext_resource type="Script" path="res://scene/widget/PlayerTable.gd" id="5_c6dev"]
 
 [node name="TournamentSettings" type="Control"]
 layout_mode = 3
@@ -13,7 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_kaooh")
+script = ExtResource("1_g6f8p")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -48,6 +48,40 @@ layout_mode = 2
 text = "Tournament Settings"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TournamentNameContainer" type="HBoxContainer" parent="HBoxContainer/SettingsPane"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/SettingsPane/TournamentNameContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/SettingsPane/TournamentNameContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="HBoxContainer/SettingsPane/TournamentNameContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Tournament Name"
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/SettingsPane/TournamentNameContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/SettingsPane/TournamentNameContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="TournamentName" type="LineEdit" parent="HBoxContainer/SettingsPane/TournamentNameContainer/HBoxContainer2/MarginContainer"]
+layout_mode = 2
+text = "My Awesome Mahjong Tournament"
+placeholder_text = "My Awesome Mahjong Tournament"
 
 [node name="GameTypeContainer" type="HBoxContainer" parent="HBoxContainer/SettingsPane"]
 layout_mode = 2
@@ -125,18 +159,18 @@ popup/item_0/id = 0
 popup/item_1/text = "Floating"
 popup/item_1/id = 1
 
-[node name="UmaContainer" parent="HBoxContainer/SettingsPane" instance=ExtResource("2_kp1n0")]
+[node name="UmaContainer" parent="HBoxContainer/SettingsPane" instance=ExtResource("2_fb0oh")]
 layout_mode = 2
 
-[node name="UmaContainer1" parent="HBoxContainer/SettingsPane" instance=ExtResource("2_kp1n0")]
+[node name="UmaContainer1" parent="HBoxContainer/SettingsPane" instance=ExtResource("2_fb0oh")]
 visible = false
 layout_mode = 2
 
-[node name="UmaContainer2" parent="HBoxContainer/SettingsPane" instance=ExtResource("2_kp1n0")]
+[node name="UmaContainer2" parent="HBoxContainer/SettingsPane" instance=ExtResource("2_fb0oh")]
 visible = false
 layout_mode = 2
 
-[node name="UmaContainer3" parent="HBoxContainer/SettingsPane" instance=ExtResource("2_kp1n0")]
+[node name="UmaContainer3" parent="HBoxContainer/SettingsPane" instance=ExtResource("2_fb0oh")]
 visible = false
 layout_mode = 2
 
@@ -212,7 +246,7 @@ layout_mode = 2
 text = "25000"
 placeholder_text = "25000"
 select_all_on_focus = true
-script = ExtResource("3_jlqw6")
+script = ExtResource("3_ng8op")
 
 [node name="ReturnContainer" type="HBoxContainer" parent="HBoxContainer/SettingsPane"]
 layout_mode = 2
@@ -248,9 +282,9 @@ layout_mode = 2
 text = "30000"
 placeholder_text = "30000"
 select_all_on_focus = true
-script = ExtResource("3_jlqw6")
+script = ExtResource("3_ng8op")
 
-[node name="OkaContainer" parent="HBoxContainer/SettingsPane" instance=ExtResource("2_kp1n0")]
+[node name="OkaContainer" parent="HBoxContainer/SettingsPane" instance=ExtResource("2_fb0oh")]
 layout_mode = 2
 
 [node name="RoundTimeContainer" type="HBoxContainer" parent="HBoxContainer/SettingsPane"]
@@ -287,7 +321,7 @@ layout_mode = 2
 text = "75"
 placeholder_text = "75"
 select_all_on_focus = true
-script = ExtResource("3_jlqw6")
+script = ExtResource("3_ng8op")
 
 [node name="PairingTypeContainer" type="HBoxContainer" parent="HBoxContainer/SettingsPane"]
 layout_mode = 2
@@ -327,6 +361,44 @@ popup/item_0/id = 0
 popup/item_1/text = "Progressive Swiss"
 popup/item_1/id = 1
 
+[node name="RiichiSticksContainer" type="HBoxContainer" parent="HBoxContainer/SettingsPane"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/SettingsPane/RiichiSticksContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/SettingsPane/RiichiSticksContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="HBoxContainer/SettingsPane/RiichiSticksContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Riichi Sticks After All Last"
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/SettingsPane/RiichiSticksContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/SettingsPane/RiichiSticksContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="RiichiSticksDropdown" type="OptionButton" parent="HBoxContainer/SettingsPane/RiichiSticksContainer/HBoxContainer2/MarginContainer"]
+layout_mode = 2
+item_count = 2
+selected = 0
+popup/item_0/text = "Lost"
+popup/item_0/id = 0
+popup/item_1/text = "Give to First"
+popup/item_1/id = 1
+
 [node name="AssignWindsContainer" type="HBoxContainer" parent="HBoxContainer/SettingsPane"]
 layout_mode = 2
 
@@ -360,42 +432,6 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 button_pressed = true
 icon_alignment = 1
-
-[node name="ScoreSettingContainer" type="HBoxContainer" parent="HBoxContainer/SettingsPane"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/SettingsPane/ScoreSettingContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/SettingsPane/ScoreSettingContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_bottom = 5
-
-[node name="Label" type="Label" parent="HBoxContainer/SettingsPane/ScoreSettingContainer/HBoxContainer/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 1
-text = "Score Per 1000 Points"
-vertical_alignment = 1
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/SettingsPane/ScoreSettingContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/SettingsPane/ScoreSettingContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="ScoreSettingInput" type="LineEdit" parent="HBoxContainer/SettingsPane/ScoreSettingContainer/HBoxContainer2/MarginContainer"]
-layout_mode = 2
-text = "1.0"
-placeholder_text = "1.0"
-select_all_on_focus = true
-script = ExtResource("3_jlqw6")
 
 [node name="AdvancedSettingsButton" type="HBoxContainer" parent="HBoxContainer/SettingsPane"]
 layout_mode = 2
@@ -434,6 +470,42 @@ icon_alignment = 1
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="ScoreSettingContainer" type="HBoxContainer" parent="HBoxContainer/SettingsPane/AdvancedSettingsContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/SettingsPane/AdvancedSettingsContainer/ScoreSettingContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/SettingsPane/AdvancedSettingsContainer/ScoreSettingContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="HBoxContainer/SettingsPane/AdvancedSettingsContainer/ScoreSettingContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Score Per 1000 Points"
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/SettingsPane/AdvancedSettingsContainer/ScoreSettingContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/SettingsPane/AdvancedSettingsContainer/ScoreSettingContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ScoreSettingInput" type="LineEdit" parent="HBoxContainer/SettingsPane/AdvancedSettingsContainer/ScoreSettingContainer/HBoxContainer2/MarginContainer"]
+layout_mode = 2
+text = "1.0"
+placeholder_text = "1.0"
+select_all_on_focus = true
+script = ExtResource("3_ng8op")
 
 [node name="ShuugiSettingsButton" type="HBoxContainer" parent="HBoxContainer/SettingsPane/AdvancedSettingsContainer"]
 layout_mode = 2
@@ -506,7 +578,7 @@ layout_mode = 2
 text = "10"
 placeholder_text = "10"
 select_all_on_focus = true
-script = ExtResource("3_jlqw6")
+script = ExtResource("3_ng8op")
 
 [node name="ReturnContainer" type="HBoxContainer" parent="HBoxContainer/SettingsPane/AdvancedSettingsContainer/ShuugiContainer"]
 layout_mode = 2
@@ -542,7 +614,7 @@ layout_mode = 2
 text = "10"
 placeholder_text = "10"
 select_all_on_focus = true
-script = ExtResource("3_jlqw6")
+script = ExtResource("3_ng8op")
 
 [node name="ScoreSettingContainer" type="HBoxContainer" parent="HBoxContainer/SettingsPane/AdvancedSettingsContainer/ShuugiContainer"]
 layout_mode = 2
@@ -578,7 +650,7 @@ layout_mode = 2
 text = "0.5"
 placeholder_text = "0.5"
 select_all_on_focus = true
-script = ExtResource("3_jlqw6")
+script = ExtResource("3_ng8op")
 
 [node name="Separator" type="HBoxContainer" parent="HBoxContainer/SettingsPane"]
 layout_mode = 2
@@ -600,7 +672,7 @@ text = "Start Tournament"
 [node name="PlayersPane" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-script = ExtResource("3_ocxb7")
+script = ExtResource("4_kxprx")
 
 [node name="PlayersTitleContainer" type="MarginContainer" parent="HBoxContainer/PlayersPane"]
 layout_mode = 2
@@ -630,7 +702,7 @@ allow_search = false
 hide_folding = true
 enable_recursive_folding = false
 hide_root = true
-script = ExtResource("3_fo0gy")
+script = ExtResource("5_c6dev")
 
 [node name="TextEdit" type="TextEdit" parent="HBoxContainer/PlayersPane/MarginContainer"]
 visible = false

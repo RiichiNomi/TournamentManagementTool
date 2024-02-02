@@ -3,6 +3,8 @@ class_name TournamentSetup
 
 @onready var start_tournament_button : Button = $HBoxContainer/SettingsPane/VBoxContainer/MarginContainer/StartTournamentButton
 
+@onready var tournament_name : LineEdit = $HBoxContainer/SettingsPane/TournamentNameContainer/HBoxContainer2/MarginContainer/TournamentName
+
 @onready var game_type_dropdown : OptionButton = $HBoxContainer/SettingsPane/GameTypeContainer/HBoxContainer2/MarginContainer/GameType
 @onready var uma_type_dropdown : OptionButton = $HBoxContainer/SettingsPane/UmaTypeContainer/HBoxContainer2/MarginContainer/UmaType
 
@@ -25,10 +27,12 @@ class_name TournamentSetup
 
 @onready var assign_winds_button : CheckBox = $HBoxContainer/SettingsPane/AssignWindsContainer/HBoxContainer2/MarginContainer/AssignWindsButton
 
-@onready var score_per_thousand : NumericLineEdit = $HBoxContainer/SettingsPane/ScoreSettingContainer/HBoxContainer2/MarginContainer/ScoreSettingInput
+@onready var riichi_sticks_strategy : OptionButton = $HBoxContainer/SettingsPane/RiichiSticksContainer/HBoxContainer2/MarginContainer/RiichiSticksDropdown
 
 @onready var advanced_settings_button : CheckButton = $HBoxContainer/SettingsPane/AdvancedSettingsButton/HBoxContainer2/MarginContainer/AdvancedSettingsButton
 @onready var advanced_settings_container : VBoxContainer = $HBoxContainer/SettingsPane/AdvancedSettingsContainer
+
+@onready var score_per_thousand : NumericLineEdit = $HBoxContainer/SettingsPane/AdvancedSettingsContainer/ScoreSettingContainer/HBoxContainer2/MarginContainer/ScoreSettingInput
 
 @onready var shuugi_settings_button : CheckButton = $HBoxContainer/SettingsPane/AdvancedSettingsContainer/ShuugiSettingsButton/HBoxContainer2/MarginContainer/ShuugiSettingsButton
 @onready var shuugi_settings_container : VBoxContainer = $HBoxContainer/SettingsPane/AdvancedSettingsContainer/ShuugiContainer
@@ -39,7 +43,7 @@ class_name TournamentSetup
 
 @onready var players_pane : PlayersPane = $HBoxContainer/PlayersPane
 
-var TournamentSettingsPreview = preload("res://scene/tournament_settings_preview.tscn")
+var TournamentSettingsPreviewScene = preload("res://scene/setup/tournament_settings_preview.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -128,6 +132,8 @@ func _toggle_shuugi(toggled : bool):
 func _start_tournament():
 	var tournament = Tournament.new()
 	var tournament_settings = tournament.settings
+
+	tournament.name = tournament_name.text
 	
 	tournament_settings.game_type = game_type_dropdown.selected
 	tournament_settings.uma_type = uma_type_dropdown.selected
@@ -140,6 +146,8 @@ func _start_tournament():
 		if game_type_dropdown.selected == 0:
 			tournament_settings.floating_uma_3 = floating_uma_3.export()
 	
+	tournament_settings.tiebreak_strategy = tiebreak_dropdown.selected
+	
 	tournament_settings.start_points = start_value.get_value()
 	tournament_settings.return_points = return_value.get_value()
 
@@ -148,9 +156,13 @@ func _start_tournament():
 	tournament_settings.time_per_round_minutes = round_timer_mins.get_value()
 	tournament_settings.pairing_system = pairing_type.selected
 
-	tournament_settings.score_per_thousand_points = score_per_thousand.get_value()
+	tournament_settings.assign_seat_winds = assign_winds_button.button_pressed
+	tournament_settings.riichi_sticks_strategy = riichi_sticks_strategy.selected
 
 	if advanced_settings_button.button_pressed:
+		tournament_settings.advanced_settings = true
+		tournament_settings.score_per_thousand_points = score_per_thousand.get_value()
+
 		if shuugi_settings_button.button_pressed:
 			tournament_settings.shuugi = true
 			tournament_settings.start_shuugi = shuugi_start_value.get_value()
@@ -159,6 +171,7 @@ func _start_tournament():
 		else:
 			tournament_settings.shuugi = false
 	else:
+		tournament_settings.advanced_settings = false
 		tournament_settings.shuugi = false
 
 	tournament.registered_players = players_pane.export()
@@ -166,7 +179,7 @@ func _start_tournament():
 	for player in tournament.registered_players:
 		print("%d: %s, %s" % [player.id, player.name, player.affiliation])
 	
-	var preview_scene = TournamentSettingsPreview.instantiate()
+	var preview_scene = TournamentSettingsPreviewScene.instantiate()
 	preview_scene.init(tournament)
 
 	get_tree().root.add_child(preview_scene)
