@@ -1,0 +1,84 @@
+[gd_scene load_steps=3 format=3 uid="uid://dj7jf4cdfcxsm"]
+
+[ext_resource type="Script" path="res://scene/UmaContainer.gd" id="1_tnmgd"]
+[ext_resource type="Script" path="res://scene/NumericLineEdit.gd" id="2_dqnh2"]
+
+[node name="UmaContainer" type="HBoxContainer"]
+script = ExtResource("1_tnmgd")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Uma
+"
+vertical_alignment = 1
+
+[node name="UmaInputContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Uma1" type="MarginContainer" parent="UmaInputContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Uma1" type="LineEdit" parent="UmaInputContainer/Uma1"]
+layout_mode = 2
+text = "20"
+placeholder_text = "20"
+select_all_on_focus = true
+script = ExtResource("2_dqnh2")
+
+[node name="Uma2" type="MarginContainer" parent="UmaInputContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Uma2" type="LineEdit" parent="UmaInputContainer/Uma2"]
+layout_mode = 2
+text = "0"
+placeholder_text = "0"
+select_all_on_focus = true
+script = ExtResource("2_dqnh2")
+
+[node name="Uma3" type="MarginContainer" parent="UmaInputContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Uma3" type="LineEdit" parent="UmaInputContainer/Uma3"]
+layout_mode = 2
+text = "0"
+placeholder_text = "0"
+select_all_on_focus = true
+script = ExtResource("2_dqnh2")
+
+[node name="Uma4" type="MarginContainer" parent="UmaInputContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Uma4" type="LineEdit" parent="UmaInputContainer/Uma4"]
+layout_mode = 2
+text = "0"
+placeholder_text = "0"
+select_all_on_focus = true
+script = ExtResource("2_dqnh2")

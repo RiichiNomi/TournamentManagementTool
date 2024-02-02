@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://cl8xmaaqgbpap"]
+
+[ext_resource type="Script" path="res://scene/widget/setting_display.gd" id="1_cpayj"]
+
+[node name="SettingDisplay" type="HBoxContainer"]
+script = ExtResource("1_cpayj")
+
+[node name="NameContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_top = 5
+
+[node name="Label" type="Label" parent="NameContainer"]
+layout_mode = 2
+text = "Name"
+vertical_alignment = 1
+
+[node name="ValueContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_top = 5
+
+[node name="Label" type="Label" parent="ValueContainer"]
+layout_mode = 2
+text = "Value"
+vertical_alignment = 1

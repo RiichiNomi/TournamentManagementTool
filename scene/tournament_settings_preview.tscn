@@ -1,0 +1,154 @@
+[gd_scene load_steps=5 format=3 uid="uid://848pympku5cr"]
+
+[ext_resource type="PackedScene" uid="uid://cl8xmaaqgbpap" path="res://scene/widget/setting_display.tscn" id="1_amb0s"]
+[ext_resource type="Script" path="res://scene/tournament_settings_preview.gd" id="1_cfs4w"]
+[ext_resource type="PackedScene" uid="uid://bivo75jlpqqx8" path="res://scene/widget/uma_display.tscn" id="2_xwl0h"]
+[ext_resource type="Script" path="res://scene/PlayerTable.gd" id="4_0fqga"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cfs4w")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PadLeft" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SettingsPreview" type="VBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(850, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="MarginContainer" parent="HBoxContainer/SettingsPreview"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="HBoxContainer/SettingsPreview/Title"]
+layout_mode = 2
+text = "Preview"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameType" parent="HBoxContainer/SettingsPreview" instance=ExtResource("1_amb0s")]
+layout_mode = 2
+
+[node name="UmaType" parent="HBoxContainer/SettingsPreview" instance=ExtResource("1_amb0s")]
+layout_mode = 2
+
+[node name="FixedUma" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_xwl0h")]
+layout_mode = 2
+
+[node name="FloatingUma1" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_xwl0h")]
+layout_mode = 2
+
+[node name="FloatingUma2" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_xwl0h")]
+layout_mode = 2
+
+[node name="FloatingUma3" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_xwl0h")]
+layout_mode = 2
+
+[node name="StartPoints" parent="HBoxContainer/SettingsPreview" instance=ExtResource("1_amb0s")]
+layout_mode = 2
+
+[node name="ReturnPoints" parent="HBoxContainer/SettingsPreview" instance=ExtResource("1_amb0s")]
+layout_mode = 2
+
+[node name="Oka" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_xwl0h")]
+layout_mode = 2
+
+[node name="PairingSystem" parent="HBoxContainer/SettingsPreview" instance=ExtResource("1_amb0s")]
+layout_mode = 2
+
+[node name="TimePerRound" parent="HBoxContainer/SettingsPreview" instance=ExtResource("1_amb0s")]
+layout_mode = 2
+
+[node name="ScorePerThousand" parent="HBoxContainer/SettingsPreview" instance=ExtResource("1_amb0s")]
+layout_mode = 2
+
+[node name="StartShuugi" parent="HBoxContainer/SettingsPreview" instance=ExtResource("1_amb0s")]
+layout_mode = 2
+
+[node name="EndShuugi" parent="HBoxContainer/SettingsPreview" instance=ExtResource("1_amb0s")]
+layout_mode = 2
+
+[node name="ScorePerShuugi" parent="HBoxContainer/SettingsPreview" instance=ExtResource("1_amb0s")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/SettingsPreview"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="Label" type="Label" parent="HBoxContainer/SettingsPreview/MarginContainer"]
+layout_mode = 2
+text = "Players"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Players" type="HBoxContainer" parent="HBoxContainer/SettingsPreview"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/SettingsPreview/Players"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 10
+
+[node name="Tree" type="Tree" parent="HBoxContainer/SettingsPreview/Players/MarginContainer"]
+layout_mode = 2
+columns = 3
+column_titles_visible = true
+allow_search = false
+hide_folding = true
+enable_recursive_folding = false
+hide_root = true
+select_mode = 1
+script = ExtResource("4_0fqga")
+
+[node name="Controls" type="HBoxContainer" parent="HBoxContainer/SettingsPreview"]
+layout_mode = 2
+
+[node name="Confirm" type="MarginContainer" parent="HBoxContainer/SettingsPreview/Controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_bottom = 20
+
+[node name="Confirm" type="Button" parent="HBoxContainer/SettingsPreview/Controls/Confirm"]
+layout_mode = 2
+text = "Confirm"
+
+[node name="Cancel" type="MarginContainer" parent="HBoxContainer/SettingsPreview/Controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_bottom = 20
+
+[node name="Cancel" type="Button" parent="HBoxContainer/SettingsPreview/Controls/Cancel"]
+layout_mode = 2
+text = "Cancel
+"
+
+[node name="PadRight" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
