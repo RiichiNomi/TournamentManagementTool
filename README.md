@@ -17,10 +17,14 @@ While a tournament is in-progress, it should be possible to:
     should support the issuance of penalties by judges or other event staff.
 * Generate pairings for the next tournament round, with the pairing generation
   strategy defined by the tournament's settings.
+  * By default, the software will attempt to generate a table for each
+    registered players will each round, though it should be possible to generate
+    tables for only a selected subset of players instead.
+  * If necessary, tables may be created on an ad-hoc basis, which is useful for
+    tournaments without a fixed number of rounds (e.g. the RNNYC online or
+    Sunday in-person meetups).
 * Cut to the Top X players, with options for modifying those players' cumulative
   scores (e.g. cleared, halved, unchanged).
-* Create tables on an ad-hoc basis, useful for tournaments without a fixed
-  number of rounds (e.g. the RNNYC online or Sunday in-person meetups).
 * Edit scores of previously submitted games in case of clerical or other error.
 * Permit players to drop from the tournament, and alert the tournament organizer
   if substitute players are required (due to not having enough players for a
