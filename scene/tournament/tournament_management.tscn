@@ -76,11 +76,27 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ItemList" type="Tree" parent="VBoxContainer/MainContainer/TabContainer/Standings/Standings"]
+[node name="PlayerListContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/Standings/Standings"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 20
+
+[node name="PlayerList" type="Tree" parent="VBoxContainer/MainContainer/TabContainer/Standings/Standings/PlayerListContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HanchanHistory" type="Tree" parent="VBoxContainer/MainContainer/TabContainer/Standings/Standings"]
+[node name="HanchanHistoryContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/Standings/Standings"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HanchanHistory" type="Tree" parent="VBoxContainer/MainContainer/TabContainer/Standings/Standings/HanchanHistoryContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 

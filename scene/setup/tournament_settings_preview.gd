@@ -98,26 +98,26 @@ func render():
 			start_shuugi.visible = false
 			end_shuugi.visible = false
 			score_per_shuugi.visible = false
-		
-		for player in tournament.registered_players:
-			var row = player_table.create_item()
-
-			row.set_cell_mode(0, TreeItem.CELL_MODE_STRING)
-			row.set_cell_mode(1, TreeItem.CELL_MODE_STRING)
-			row.set_cell_mode(2, TreeItem.CELL_MODE_STRING)
-
-			row.set_text(0, str(player.id))
-			row.set_text(1, player.name)
-			row.set_text(2, player.affiliation)
-
-			row.set_editable(0, false)
-			row.set_editable(1, false)
-			row.set_editable(2, false)
 	else:
 		score_per_thousand_points.visible = false
 		start_shuugi.visible = false
 		end_shuugi.visible = false
 		score_per_shuugi.visible = false
+
+	for player in tournament.registered_players:
+		var row = player_table.create_item()
+
+		row.set_cell_mode(0, TreeItem.CELL_MODE_STRING)
+		row.set_cell_mode(1, TreeItem.CELL_MODE_STRING)
+		row.set_cell_mode(2, TreeItem.CELL_MODE_STRING)
+
+		row.set_text(0, str(player.id))
+		row.set_text(1, player.name)
+		row.set_text(2, player.affiliation)
+
+		row.set_editable(0, false)
+		row.set_editable(1, false)
+		row.set_editable(2, false)
 
 func _handle_confirm():
 	data_store.tournament = tournament

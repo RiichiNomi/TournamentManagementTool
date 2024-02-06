@@ -41,7 +41,7 @@ class_name TournamentSetup
 @onready var shuugi_return_value : NumericLineEdit = $HBoxContainer/SettingsPane/AdvancedSettingsContainer/ShuugiContainer/ReturnContainer/HBoxContainer2/MarginContainer/ReturnValue
 @onready var score_per_shuugi : NumericLineEdit = $HBoxContainer/SettingsPane/AdvancedSettingsContainer/ShuugiContainer/ScoreSettingContainer/HBoxContainer2/MarginContainer/ScoreSettingInput
 
-@onready var players_pane : PlayersPane = $HBoxContainer/PlayersPane
+@onready var players_pane : PlayersInputPane = $HBoxContainer/PlayersPane
 
 var TournamentSettingsPreviewScene = preload("res://scene/setup/tournament_settings_preview.tscn")
 
@@ -175,9 +175,6 @@ func _start_tournament():
 		tournament_settings.shuugi = false
 
 	tournament.registered_players = players_pane.export()
-
-	for player in tournament.registered_players:
-		print("%d: %s, %s" % [player.id, player.name, player.affiliation])
 	
 	var preview_scene = TournamentSettingsPreviewScene.instantiate()
 	preview_scene.init(tournament)

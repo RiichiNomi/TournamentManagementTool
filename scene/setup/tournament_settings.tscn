@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://scene/setup/tournament_settings.gd" id="1_g6f8p"]
 [ext_resource type="PackedScene" uid="uid://dj7jf4cdfcxsm" path="res://scene/widget/uma_container.tscn" id="2_fb0oh"]
 [ext_resource type="Script" path="res://scene/widget/NumericLineEdit.gd" id="3_ng8op"]
-[ext_resource type="Script" path="res://scene/widget/PlayersPane.gd" id="4_kxprx"]
-[ext_resource type="Script" path="res://scene/widget/PlayerTable.gd" id="5_c6dev"]
+[ext_resource type="Script" path="res://scene/widget/PlayersInputPane.gd" id="4_44hym"]
+[ext_resource type="Script" path="res://scene/widget/PlayerPreviewTable.gd" id="5_o7qol"]
 
 [node name="TournamentSettings" type="Control"]
 layout_mode = 3
@@ -672,7 +672,7 @@ text = "Start Tournament"
 [node name="PlayersPane" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-script = ExtResource("4_kxprx")
+script = ExtResource("4_44hym")
 
 [node name="PlayersTitleContainer" type="MarginContainer" parent="HBoxContainer/PlayersPane"]
 layout_mode = 2
@@ -702,7 +702,7 @@ allow_search = false
 hide_folding = true
 enable_recursive_folding = false
 hide_root = true
-script = ExtResource("5_c6dev")
+script = ExtResource("5_o7qol")
 
 [node name="TextEdit" type="TextEdit" parent="HBoxContainer/PlayersPane/MarginContainer"]
 visible = false

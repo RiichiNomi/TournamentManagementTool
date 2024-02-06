@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scene/setup/tournament_settings_preview.gd" id="1_is60x"]
 [ext_resource type="PackedScene" uid="uid://cl8xmaaqgbpap" path="res://scene/widget/setting_display.tscn" id="2_emjvx"]
 [ext_resource type="PackedScene" uid="uid://bivo75jlpqqx8" path="res://scene/widget/uma_display.tscn" id="3_17m5a"]
-[ext_resource type="Script" path="res://scene/widget/PlayerTable.gd" id="4_4kyld"]
+[ext_resource type="Script" path="res://scene/widget/PlayerPreviewTable.gd" id="4_m7fuc"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -143,7 +143,7 @@ hide_folding = true
 enable_recursive_folding = false
 hide_root = true
 select_mode = 1
-script = ExtResource("4_4kyld")
+script = ExtResource("4_m7fuc")
 
 [node name="Controls" type="HBoxContainer" parent="HBoxContainer/SettingsPreview"]
 layout_mode = 2
