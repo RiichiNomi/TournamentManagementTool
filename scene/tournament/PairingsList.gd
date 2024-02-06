@@ -34,7 +34,6 @@ func render(new_tables, byes):
 		table.table_id = table_id
 		table_id += 1
 
-		print(table.player_ids)
 		for index in range(table.player_ids.size()):
 			var player_id = table.player_ids[index]
 			var player_data = data_store.get_player(player_id)
