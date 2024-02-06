@@ -10,14 +10,14 @@ var cut_id : int = -1
 var player_ids = []
 var player_seats = []
 
-var final_scores = []
+var final_points = []
 var final_shuugi = []
 var penalties = []
 
 var left_over_kyotaku : float = 0
 
 func is_complete(settings : TournamentSettings) -> bool:
-  var scores_complete = final_scores.size() == player_ids.size()
+  var scores_complete = final_points.size() == player_ids.size()
   var shuugi_complete = final_shuugi.size() == player_ids.size()
   return scores_complete and (not settings.shuugi or shuugi_complete)
 
@@ -32,7 +32,7 @@ func score_table(settings : TournamentSettings) -> Dictionary:
   # Calculate net score relative to return points
   var max_score = -100000
   var max_indices = []
-  for score in final_scores:
+  for score in final_points:
     var net_score = (score - (settings.return_points * settings.score_per_thousand_points)) / 1000
     if net_score > max_score:
       max_score = net_score

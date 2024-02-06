@@ -26,6 +26,9 @@ func get_hanchan_history_for_player(player_id : int) -> Array:
             relevant_tables.append(table)
     return relevant_tables
 
+func get_player(player_id : int) -> Player:
+    return players_by_id[player_id]
+
 func load_tournament(new_tournament : Tournament) -> void:
     tournament = new_tournament
 

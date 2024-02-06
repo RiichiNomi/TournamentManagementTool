@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bh0j8j56pkgix"]
+[gd_scene load_steps=4 format=3 uid="uid://bh0j8j56pkgix"]
 
 [ext_resource type="Script" path="res://scene/tournament/TournamentStandings.gd" id="1_idape"]
+[ext_resource type="Script" path="res://scene/tournament/PlayerList.gd" id="2_vfbjs"]
+[ext_resource type="Script" path="res://scene/tournament/PlayerHanchanHistory.gd" id="3_pfn50"]
 
 [node name="TournamentManagement" type="Control"]
 layout_mode = 3
@@ -96,8 +98,9 @@ hide_folding = true
 hide_root = true
 select_mode = 1
 scroll_horizontal_enabled = false
+script = ExtResource("2_vfbjs")
 
-[node name="HanchanHistoryContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/Standings/Standings"]
+[node name="PlayerHanchanHistoryContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/Standings/Standings"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
@@ -105,24 +108,39 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="HanchanHistory" type="Tree" parent="VBoxContainer/MainContainer/TabContainer/Standings/Standings/HanchanHistoryContainer"]
+[node name="PlayerHanchanHistory" type="Tree" parent="VBoxContainer/MainContainer/TabContainer/Standings/Standings/PlayerHanchanHistoryContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+column_titles_visible = true
+allow_search = false
+hide_root = true
+select_mode = 1
+scroll_horizontal_enabled = false
+script = ExtResource("3_pfn50")
+
+[node name="Hanchan History" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Hanchan History" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/Hanchan History"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Hanchan Record" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
+[node name="Round Management" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="Hanchan Record" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/Hanchan Record"]
+[node name="Round Management" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/Round Management"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Current Round" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
+[node name="Player Management" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="Current Round" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/Current Round"]
+[node name="Player Management" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/Player Management"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
