@@ -180,6 +180,30 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="PairingsContainer" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/PairingsContainer"]
+layout_mode = 2
+text = "Round Pairings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PairingsListContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/PairingsContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PairingsList" type="Tree" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/PairingsContainer/PairingsListContainer"]
+layout_mode = 2
+columns = 4
+column_titles_visible = true
+hide_folding = true
+hide_root = true
+select_mode = 1
+script = ExtResource("2_vfbjs")
+
 [node name="ActivePlayersContainer" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -211,96 +235,123 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="UnscoredTables" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer"]
+[node name="Settings" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer"]
 layout_mode = 2
 
-[node name="Left" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/UnscoredTables"]
+[node name="ActiveTables" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings"]
+layout_mode = 2
+
+[node name="Left" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/ActiveTables"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_bottom = 5
 
-[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/UnscoredTables/Left"]
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/ActiveTables/Left"]
 layout_mode = 2
-text = "Unscored Tables"
+text = "Active Tables"
 
-[node name="Right" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/UnscoredTables"]
+[node name="Right" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/ActiveTables"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_bottom = 5
 
-[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/UnscoredTables/Right"]
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/ActiveTables/Right"]
 layout_mode = 2
 text = "0"
 
-[node name="RoundTime" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer"]
+[node name="RoundTime" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings"]
 layout_mode = 2
 
-[node name="Left" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/RoundTime"]
+[node name="Left" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/RoundTime"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_bottom = 5
 
-[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/RoundTime/Left"]
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/RoundTime/Left"]
 layout_mode = 2
 text = "Round Time (Minutes)"
 
-[node name="Right" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/RoundTime"]
+[node name="Right" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/RoundTime"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_bottom = 5
 
-[node name="NumericLineEdit" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/RoundTime/Right"]
+[node name="NumericLineEdit" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/RoundTime/Right"]
 layout_mode = 2
 text = "0"
 placeholder_text = "0"
 script = ExtResource("5_g344r")
 
-[node name="AvoidDuplicates" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer"]
+[node name="AvoidDuplicates" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings"]
 layout_mode = 2
 
-[node name="Left" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/AvoidDuplicates"]
+[node name="Left" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/AvoidDuplicates"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_bottom = 5
 
-[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/AvoidDuplicates/Left"]
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/AvoidDuplicates/Left"]
 layout_mode = 2
 text = "Minimize Duplicate Pairings"
 
-[node name="Right" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/AvoidDuplicates"]
+[node name="Right" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/AvoidDuplicates"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 1
 theme_override_constants/margin_bottom = 5
 
-[node name="CheckBox" type="CheckBox" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/AvoidDuplicates/Right"]
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/AvoidDuplicates/Right"]
 layout_mode = 2
 button_pressed = true
 
-[node name="SwissBlocks" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer"]
+[node name="AssignWinds" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings"]
 layout_mode = 2
 
-[node name="Left" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/SwissBlocks"]
+[node name="Left" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/AssignWinds"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_bottom = 5
 
-[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/SwissBlocks/Left"]
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/AssignWinds/Left"]
+layout_mode = 2
+text = "Assign Seat Winds"
+
+[node name="Right" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/AssignWinds"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_bottom = 5
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/AssignWinds/Right"]
+layout_mode = 2
+button_pressed = true
+
+[node name="SwissBlocks" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Left" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/SwissBlocks"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/SwissBlocks/Left"]
 layout_mode = 2
 text = "Swiss Pairing Blocks"
 
-[node name="Right" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/SwissBlocks"]
+[node name="Right" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/SwissBlocks"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_bottom = 5
 
-[node name="Selector" type="OptionButton" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/SwissBlocks/Right"]
+[node name="Selector" type="OptionButton" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/SwissBlocks/Right"]
 layout_mode = 2
 item_count = 5
 selected = 0
@@ -315,9 +366,23 @@ popup/item_3/id = 3
 popup/item_4/text = "16"
 popup/item_4/id = 4
 
-[node name="StartRoundButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer"]
+[node name="CreatePairingsButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer"]
 layout_mode = 2
-text = "Start New Round"
+text = "Create Pairings"
+
+[node name="ConfirmRound" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer"]
+visible = false
+layout_mode = 2
+
+[node name="StartRoundButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/ConfirmRound"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Start Round"
+
+[node name="CancelRoundButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/ConfirmRound"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel"
 
 [node name="BottomPadding" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer"]
 layout_mode = 2
