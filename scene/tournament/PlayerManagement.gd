@@ -1,7 +1,7 @@
 extends HBoxContainer
 class_name PlayerManagement
 
-@onready var data_store = get_node("/root/DataStore")
+@onready var data_store : DataStore = get_node("/root/DataStore")
 
 @onready var active_players : PlayerList = $ActivePlayersContainer/ActivePlayersListContainer/ActivePlayers
 

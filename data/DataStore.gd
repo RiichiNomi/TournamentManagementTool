@@ -8,6 +8,17 @@ var scores : Dictionary = {}
 
 signal standings_updated
 signal players_updated
+signal round_start
+
+func start_round(time_secs : float):
+    round_start.emit(time_secs)
+
+func add_round(new_tables) -> void:
+    for table in new_tables:
+        table.round_id = tournament.next_round
+    tournament.next_round += 1
+    tournament.tables.append_array(new_tables)
+    standings_updated.emit()
 
 func update_table() -> void:
     # TODO: implement this placeholder
@@ -52,7 +63,21 @@ func get_hanchan_history_for_player(player_id : int) -> Array:
     return relevant_tables
 
 func get_player(player_id : int) -> Player:
+    if player_id == 0:
+        var sub = Player.new()
+        sub.id = 0
+        sub.name = "Substitute Player"
+        sub.affiliation = "Independent"
+        return sub
     return players_by_id[player_id]
+
+func get_active_tables_count() -> int:
+    var tables = tournament.tables
+    var count = 0
+    for table in tables:
+        if not table.is_complete(tournament.settings):
+            count += 1
+    return count
 
 func load_tournament(new_tournament : Tournament) -> void:
     tournament = new_tournament

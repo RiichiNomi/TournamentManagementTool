@@ -8,6 +8,8 @@ var settings : TournamentSettings = TournamentSettings.new()
 var tables : Array[Table] = []
 var cuts : Array[Cut] = []
 
+var next_round : int = 1
+
 func calculate_scores() -> Dictionary:
 	var scores = {}
 

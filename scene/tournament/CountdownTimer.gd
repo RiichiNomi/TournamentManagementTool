@@ -1,8 +1,9 @@
 extends MarginContainer
 class_name CountdownTimer
 
-@onready var timer : Timer = $Timer
+@onready var data_store : DataStore = get_node("/root/DataStore")
 
+@onready var timer : Timer = $Timer
 @onready var label : Button = $Time
 
 var timed_out = false
@@ -13,7 +14,7 @@ func _ready():
 	timer.timeout.connect(_on_timeout)
 	label.pressed.connect(_on_timer_pressed)
 
-	start_timer(5)
+	data_store.round_start.connect(start_timer)
 
 func _process(delta):
 	if not timer.is_stopped():

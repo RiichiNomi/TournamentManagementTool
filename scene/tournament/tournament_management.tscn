@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bh0j8j56pkgix"]
+[gd_scene load_steps=16 format=3 uid="uid://bh0j8j56pkgix"]
 
 [ext_resource type="Script" path="res://scene/tournament/TournamentStandings.gd" id="1_idape"]
 [ext_resource type="Script" path="res://scene/tournament/CountdownTimer.gd" id="1_p3fnt"]
@@ -7,7 +7,10 @@
 [ext_resource type="Script" path="res://scene/tournament/PlayerHanchanHistory.gd" id="3_pfn50"]
 [ext_resource type="Script" path="res://scene/tournament/PlayerManagement.gd" id="5_bpmp2"]
 [ext_resource type="Script" path="res://scene/widget/NumericLineEdit.gd" id="5_g344r"]
+[ext_resource type="Script" path="res://scene/tournament/RoundManagement.gd" id="6_6eqxs"]
 [ext_resource type="Script" path="res://scene/tournament/InactivePlayersList.gd" id="6_lsk6h"]
+[ext_resource type="Script" path="res://scene/tournament/RoundManagementSettings.gd" id="7_8612w"]
+[ext_resource type="Script" path="res://scene/tournament/PairingsList.gd" id="7_c2q4b"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0ewmx"]
 
@@ -179,6 +182,7 @@ theme_override_constants/margin_bottom = 20
 [node name="RoundManagement" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("6_6eqxs")
 
 [node name="PairingsContainer" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement"]
 visible = false
@@ -197,12 +201,12 @@ size_flags_vertical = 3
 
 [node name="PairingsList" type="Tree" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/PairingsContainer/PairingsListContainer"]
 layout_mode = 2
-columns = 4
+columns = 3
 column_titles_visible = true
 hide_folding = true
 hide_root = true
 select_mode = 1
-script = ExtResource("2_vfbjs")
+script = ExtResource("7_c2q4b")
 
 [node name="ActivePlayersContainer" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement"]
 layout_mode = 2
@@ -237,6 +241,7 @@ size_flags_vertical = 3
 
 [node name="Settings" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer"]
 layout_mode = 2
+script = ExtResource("7_8612w")
 
 [node name="ActiveTables" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings"]
 layout_mode = 2
@@ -260,6 +265,29 @@ theme_override_constants/margin_bottom = 5
 [node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/ActiveTables/Right"]
 layout_mode = 2
 text = "0"
+
+[node name="AvoidDuplicates" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings"]
+layout_mode = 2
+
+[node name="Left" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/AvoidDuplicates"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/AvoidDuplicates/Left"]
+layout_mode = 2
+text = "Minimize Duplicate Pairings"
+
+[node name="Right" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/AvoidDuplicates"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_bottom = 5
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/AvoidDuplicates/Right"]
+layout_mode = 2
+button_pressed = true
 
 [node name="RoundTime" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings"]
 layout_mode = 2
@@ -286,29 +314,6 @@ text = "0"
 placeholder_text = "0"
 script = ExtResource("5_g344r")
 
-[node name="AvoidDuplicates" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings"]
-layout_mode = 2
-
-[node name="Left" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/AvoidDuplicates"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_bottom = 5
-
-[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/AvoidDuplicates/Left"]
-layout_mode = 2
-text = "Minimize Duplicate Pairings"
-
-[node name="Right" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/AvoidDuplicates"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 1
-theme_override_constants/margin_bottom = 5
-
-[node name="CheckBox" type="CheckBox" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/AvoidDuplicates/Right"]
-layout_mode = 2
-button_pressed = true
-
 [node name="AssignWinds" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings"]
 layout_mode = 2
 
@@ -329,6 +334,29 @@ theme_override_constants/margin_left = 1
 theme_override_constants/margin_bottom = 5
 
 [node name="CheckBox" type="CheckBox" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/AssignWinds/Right"]
+layout_mode = 2
+button_pressed = true
+
+[node name="LeftoverPlayers" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings"]
+layout_mode = 2
+
+[node name="Left" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/LeftoverPlayers"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/LeftoverPlayers/Left"]
+layout_mode = 2
+text = "Assign Substitutes for Uneven Pairings"
+
+[node name="Right" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/LeftoverPlayers"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_bottom = 5
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/LeftoverPlayers/Right"]
 layout_mode = 2
 button_pressed = true
 

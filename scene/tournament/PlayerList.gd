@@ -1,7 +1,7 @@
 extends Tree
 class_name PlayerList
 
-@onready var data_store = get_node("/root/DataStore")
+@onready var data_store : DataStore = get_node("/root/DataStore")
 
 func _ready():
 	set_column_title(0, "Player ID")
@@ -34,7 +34,7 @@ func render_players() -> void:
 		row.set_cell_mode(0, TreeItem.CELL_MODE_STRING)
 		row.set_cell_mode(1, TreeItem.CELL_MODE_STRING)
 		row.set_cell_mode(2, TreeItem.CELL_MODE_STRING)
-		row.set_cell_mode(2, TreeItem.CELL_MODE_STRING)
+		row.set_cell_mode(3, TreeItem.CELL_MODE_STRING)
 
 		row.set_text(0, str(player.id))
 		row.set_text(1, player.name)
