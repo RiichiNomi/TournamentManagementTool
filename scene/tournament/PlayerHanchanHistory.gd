@@ -35,6 +35,8 @@ func _ready():
 		set_column_custom_minimum_width(1, 200)
 		set_column_custom_minimum_width(2, 0)
 		set_column_custom_minimum_width(3, 0)
+	
+	render()
 
 func inspect_player(player_id : int) -> void:
 	player_inspected = player_id

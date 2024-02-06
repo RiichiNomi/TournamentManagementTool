@@ -7,11 +7,36 @@ var players_by_id : Dictionary = {}
 var scores : Dictionary = {}
 
 signal standings_updated
+signal players_updated
 
 func update_table() -> void:
     # TODO: implement this placeholder
     scores = tournament.calculate_scores()
     standings_updated.emit()
+
+func update_inactive_players(new_inactive_players : Array) -> void:
+    for player in tournament.inactive_players:
+        if players_by_id.has(player.id):
+            players_by_id.erase(player.id)
+    tournament.inactive_players = new_inactive_players
+    for player in tournament.inactive_players:
+        players_by_id[player.id] = player
+
+func activate_player(player_id : int) -> void:
+    tournament.inactive_players = tournament.inactive_players.filter(func find_player(player):
+        return player.id != player_id)
+    tournament.registered_players.append(players_by_id[player_id])
+    tournament.registered_players.sort_custom(func comp(a, b):
+        return a.id < b.id)
+    players_updated.emit()
+
+func deactivate_player(player_id : int) -> void:
+    tournament.registered_players = tournament.registered_players.filter(func find_player(player):
+        return player.id != player_id)
+    tournament.inactive_players.append(players_by_id[player_id])
+    tournament.inactive_players.sort_custom(func comp(a, b):
+        return a.id < b.id)
+    players_updated.emit()
 
 func get_scores() -> Dictionary:
     return scores

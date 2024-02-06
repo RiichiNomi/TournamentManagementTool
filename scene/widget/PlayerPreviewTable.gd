@@ -16,12 +16,10 @@ func _ready():
 
 func export() -> Array[Player]:
 	var players : Array[Player] = []
-	var root = get_root()
-	for child in root.get_children():
+	for child in get_root().get_children():
 		var player = Player.new()
-		player.id = child.get_text(0).to_int()
+		player.id = int(child.get_text(0))
 		player.name = child.get_text(1)
 		player.affiliation = child.get_text(2)
-
 		players.append(player)
 	return players

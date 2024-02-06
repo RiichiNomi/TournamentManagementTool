@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://bh0j8j56pkgix"]
+[gd_scene load_steps=7 format=3 uid="uid://bh0j8j56pkgix"]
 
 [ext_resource type="Script" path="res://scene/tournament/TournamentStandings.gd" id="1_idape"]
+[ext_resource type="Script" path="res://scene/tournament/MainContainer.gd" id="1_xpmcv"]
 [ext_resource type="Script" path="res://scene/tournament/PlayerList.gd" id="2_vfbjs"]
 [ext_resource type="Script" path="res://scene/tournament/PlayerHanchanHistory.gd" id="3_pfn50"]
+[ext_resource type="Script" path="res://scene/tournament/PlayerManagement.gd" id="5_bpmp2"]
+[ext_resource type="Script" path="res://scene/tournament/InactivePlayersList.gd" id="6_lsk6h"]
 
 [node name="TournamentManagement" type="Control"]
 layout_mode = 3
@@ -70,24 +73,26 @@ size_flags_vertical = 3
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer/MainContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+current_tab = 3
+script = ExtResource("1_xpmcv")
 
 [node name="Standings" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
+visible = false
 layout_mode = 2
-script = ExtResource("1_idape")
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
 [node name="Standings" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/Standings"]
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("1_idape")
 
 [node name="PlayerListContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/Standings/Standings"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 20
 
 [node name="PlayerList" type="Tree" parent="VBoxContainer/MainContainer/TabContainer/Standings/Standings/PlayerListContainer"]
 layout_mode = 2
@@ -104,9 +109,6 @@ script = ExtResource("2_vfbjs")
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
 
 [node name="PlayerHanchanHistory" type="Tree" parent="VBoxContainer/MainContainer/TabContainer/Standings/Standings/PlayerHanchanHistoryContainer"]
 layout_mode = 2
@@ -118,29 +120,135 @@ select_mode = 1
 scroll_horizontal_enabled = false
 script = ExtResource("3_pfn50")
 
-[node name="Hanchan History" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
-visible = false
+[node name="HanchanHistoryContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
 layout_mode = 2
 
-[node name="Hanchan History" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/Hanchan History"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Round Management" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
-visible = false
+[node name="HanchanHistory" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer"]
 layout_mode = 2
 
-[node name="Round Management" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/Round Management"]
-visible = false
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Player Management" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
-visible = false
+[node name="HanchanHistory" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HanchanHistory" type="Tree" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/VBoxContainer/HanchanHistory"]
+layout_mode = 2
+size_flags_horizontal = 3
+column_titles_visible = true
+allow_search = false
+hide_root = true
+select_mode = 1
+scroll_horizontal_enabled = false
+script = ExtResource("3_pfn50")
+
+[node name="Management" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RoundManagementContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
 layout_mode = 2
 
-[node name="Player Management" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/Player Management"]
+[node name="RoundManagement" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerManagementContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="PlayerManagement" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/PlayerManagementContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("5_bpmp2")
+
+[node name="ActivePlayersContainer" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/PlayerManagementContainer/PlayerManagement"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="VBoxContainer/MainContainer/TabContainer/PlayerManagementContainer/PlayerManagement/ActivePlayersContainer"]
+layout_mode = 2
+text = "Active Players"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ActivePlayersListContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/PlayerManagementContainer/PlayerManagement/ActivePlayersContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ActivePlayers" type="Tree" parent="VBoxContainer/MainContainer/TabContainer/PlayerManagementContainer/PlayerManagement/ActivePlayersContainer/ActivePlayersListContainer"]
+layout_mode = 2
+columns = 4
+column_titles_visible = true
+hide_folding = true
+hide_root = true
+select_mode = 1
+script = ExtResource("2_vfbjs")
+
+[node name="ButtonsContainer" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/PlayerManagementContainer/PlayerManagement"]
+layout_mode = 2
+
+[node name="TopPadding" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/PlayerManagementContainer/PlayerManagement/ButtonsContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MoveLeftButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/PlayerManagementContainer/PlayerManagement/ButtonsContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "←"
+
+[node name="MoveRightButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/PlayerManagementContainer/PlayerManagement/ButtonsContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "→"
+
+[node name="BottomPadding" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/PlayerManagementContainer/PlayerManagement/ButtonsContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="InactivePlayersContainer" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/PlayerManagementContainer/PlayerManagement"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="VBoxContainer/MainContainer/TabContainer/PlayerManagementContainer/PlayerManagement/InactivePlayersContainer"]
+layout_mode = 2
+text = "Inactive Players"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InactivePlayersListContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/PlayerManagementContainer/PlayerManagement/InactivePlayersContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="InactivePlayers" type="Tree" parent="VBoxContainer/MainContainer/TabContainer/PlayerManagementContainer/PlayerManagement/InactivePlayersContainer/InactivePlayersListContainer"]
+layout_mode = 2
+columns = 4
+column_titles_visible = true
+hide_folding = true
+hide_root = true
+select_mode = 1
+script = ExtResource("6_lsk6h")
+
+[node name="AddPlayersButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/PlayerManagementContainer/PlayerManagement/InactivePlayersContainer"]
 visible = false
+layout_mode = 2
+text = "Add Player"
+
+[node name="EditPlayersButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/PlayerManagementContainer/PlayerManagement/InactivePlayersContainer"]
+layout_mode = 2
+text = "Edit Players"
+
+[node name="TournamentManagementContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
+layout_mode = 2
+
+[node name="TournamentManagement" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer"]
 layout_mode = 2
 size_flags_horizontal = 3

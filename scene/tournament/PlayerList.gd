@@ -3,7 +3,6 @@ class_name PlayerList
 
 @onready var data_store = get_node("/root/DataStore")
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	set_column_title(0, "Player ID")
 	set_column_title(1, "Player Name")
@@ -14,6 +13,9 @@ func _ready():
 	set_column_custom_minimum_width(1, 200)
 	set_column_custom_minimum_width(2, 100)
 	set_column_custom_minimum_width(3, 0)
+
+	data_store.players_updated.connect(render_players)
+	render_players()
 
 func selected_id() -> int:
 	var selected = get_selected()
