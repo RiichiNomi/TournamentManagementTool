@@ -47,6 +47,8 @@ func _on_accept_pairing():
 
 	data_store.start_round(pairing_settings.time_per_round_minutes * 60)
 
+	_reset_ui()
+
 func _reset_ui():
 	pairings_pane.visible = false
 	players_pane.visible = true
@@ -54,7 +56,6 @@ func _reset_ui():
 	settings_pane.visible = true
 	confirm_pane.visible = false
 	create_pairings_button.visible = true
-
 
 func _create_random_pairings(pairing_settings : RoundManagementSettings.RoundPairingSettings):
 	var tables = []

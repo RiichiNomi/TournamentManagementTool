@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://bh0j8j56pkgix"]
+[gd_scene load_steps=17 format=3 uid="uid://bh0j8j56pkgix"]
 
 [ext_resource type="Script" path="res://scene/tournament/TournamentStandings.gd" id="1_idape"]
 [ext_resource type="Script" path="res://scene/tournament/CountdownTimer.gd" id="1_p3fnt"]
+[ext_resource type="Script" path="res://scene/tournament/WindowTitle.gd" id="1_pu15g"]
 [ext_resource type="Script" path="res://scene/tournament/MainContainer.gd" id="1_xpmcv"]
 [ext_resource type="Script" path="res://scene/tournament/PlayerList.gd" id="2_vfbjs"]
 [ext_resource type="Script" path="res://scene/tournament/PlayerHanchanHistory.gd" id="3_pfn50"]
@@ -59,6 +60,7 @@ theme_override_constants/margin_bottom = 10
 [node name="Label" type="Label" parent="VBoxContainer/Header/Title"]
 layout_mode = 2
 text = "My Awesome Mahjong Tournament"
+script = ExtResource("1_pu15g")
 
 [node name="TimerLabel" type="MarginContainer" parent="VBoxContainer/Header"]
 layout_mode = 2

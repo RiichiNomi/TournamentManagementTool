@@ -28,9 +28,10 @@ func _process(delta):
 			next_color = Color(1, 1, 1, 1) if next_color == Color(1, 0, 0, 1) else Color(1, 0, 0, 1)
 
 func start_timer(time_sec : float):
-	_on_timer_pressed()
-	timer.start(time_sec)
-	label.text = secs_to_string(time_sec)
+	if time_sec != 0:
+		_on_timer_pressed()
+		timer.start(time_sec)
+		label.text = secs_to_string(time_sec)
 
 func secs_to_string(total_secs : float) -> String:
 	var secs_int = floori(total_secs)

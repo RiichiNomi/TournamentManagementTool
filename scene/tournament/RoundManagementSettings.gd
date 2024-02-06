@@ -16,6 +16,8 @@ class_name RoundManagementSettings
 func _ready():
 	render()
 
+	active_tables.modulate = Color(1, 0, 0, 1)
+
 	data_store.players_updated.connect(_on_update)
 	data_store.standings_updated.connect(_on_update)
 
