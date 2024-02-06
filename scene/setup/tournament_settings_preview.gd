@@ -120,7 +120,7 @@ func render():
 		row.set_editable(2, false)
 
 func _handle_confirm():
-	data_store.tournament = tournament
+	data_store.load_tournament(tournament)
 	get_tree().change_scene_to_packed(TournamentManager)
 
 func _handle_cancel():

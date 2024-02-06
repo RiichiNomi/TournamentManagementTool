@@ -3,6 +3,7 @@ class_name Table
 
 enum Wind { EAST, SOUTH, WEST, NORTH }
 
+var table_id : int = 0
 var round_id : int = 0
 var cut_id : int = -1
 

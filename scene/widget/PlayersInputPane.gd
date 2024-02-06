@@ -21,7 +21,7 @@ func _add_player_button_pressed():
 		row.set_cell_mode(2, TreeItem.CELL_MODE_STRING)
 
 		row.set_text(0, str(player_table.get_root().get_child_count()))
-		row.set_text(1, "Freed Jyanshi")
+		row.set_text(1, "Freed Jyanshi %d" % [player_table.get_root().get_child_count()])
 		row.set_text(2, "Riichi Nomi NYC")
 
 		row.set_editable(0, false)

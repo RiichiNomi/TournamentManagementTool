@@ -9,4 +9,10 @@ var cuts : Array[Cut] = []
 
 func calculate_scores() -> Dictionary:
 	var scores = {}
+
+	for table in tables:
+		var table_scores = table.score_table(settings)
+		for player in table_scores:
+			scores[player] = scores.get(player, 0) + table_scores[player]
+
 	return scores

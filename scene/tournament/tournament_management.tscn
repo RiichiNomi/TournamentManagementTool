@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://bh0j8j56pkgix"]
+[gd_scene load_steps=2 format=3 uid="uid://bh0j8j56pkgix"]
+
+[ext_resource type="Script" path="res://scene/tournament/TournamentStandings.gd" id="1_idape"]
 
 [node name="TournamentManagement" type="Control"]
 layout_mode = 3
@@ -71,6 +73,7 @@ size_flags_vertical = 3
 
 [node name="Standings" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
 layout_mode = 2
+script = ExtResource("1_idape")
 
 [node name="Standings" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/Standings"]
 layout_mode = 2
@@ -87,6 +90,12 @@ theme_override_constants/margin_bottom = 20
 [node name="PlayerList" type="Tree" parent="VBoxContainer/MainContainer/TabContainer/Standings/Standings/PlayerListContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+columns = 4
+column_titles_visible = true
+hide_folding = true
+hide_root = true
+select_mode = 1
+scroll_horizontal_enabled = false
 
 [node name="HanchanHistoryContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/Standings/Standings"]
 layout_mode = 2
