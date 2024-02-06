@@ -11,18 +11,18 @@ var game_type : GameType = GameType.YONMA
 
 var uma_type : UmaType = UmaType.FIXED
 
-var fixed_uma : Array[float] = [30, 10, -10, -30]
+var fixed_uma = [30.0, 10.0, -10.0, -30.0]
 
-var floating_uma_1 : Array[float] = [15, 5, -5, -15]
-var floating_uma_2 : Array[float] = [15, 5, 0, -20]
+var floating_uma_1 = [15.0, 5.0, -5.0, -15.0]
+var floating_uma_2 = [15.0, 5.0, 0.0, -20.0]
 # Unused if the game type is yonma
-var floating_uma_3 : Array[float] = [20, 0, -5, -15]
+var floating_uma_3 = [20.0, 0.0, -5.0, -15.0]
 
 var tiebreak_strategy : TiebreakStrategy = TiebreakStrategy.WIND_ORDER
 
 var start_points : float = 25000
 var return_points : float = 30000
-var oka : Array[float] = [20, 0, 0, 0]
+var oka = [20, 0, 0, 0]
 var pairing_system : PairingSystem = PairingSystem.RANDOM
 var time_per_round_minutes : float = 75
 

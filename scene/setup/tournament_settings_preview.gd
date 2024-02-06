@@ -38,6 +38,9 @@ var tournament : Tournament = null
 @onready var confirm_button : Button = $HBoxContainer/SettingsPreview/Controls/Confirm/Confirm
 @onready var cancel_button : Button = $HBoxContainer/SettingsPreview/Controls/Cancel/Cancel
 
+@onready var data_store = get_node("/root/DataStore")
+
+var TournamentManager = preload("res://scene/tournament/tournament_management.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -117,7 +120,8 @@ func render():
 		score_per_shuugi.visible = false
 
 func _handle_confirm():
-	pass
+	data_store.tournament = tournament
+	get_tree().change_scene_to_packed(TournamentManager)
 
 func _handle_cancel():
 	queue_free()

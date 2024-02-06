@@ -81,7 +81,7 @@ func _switch_game_type(selected : int):
 		floating_uma_2.set_defaults([15, 5, 0, -20])
 		floating_uma_3.set_defaults([20, 0, -5, -15])
 
-		floating_uma_1.set_title("Uma (0 or 2 Players >= Return)")
+		floating_uma_1.set_title("Uma (0 or 2 or 4 Players >= Return)")
 		floating_uma_2.set_title("Uma (3 Players >= Return)")
 		floating_uma_3.set_title("Uma (1 Player >= Return)")
 
@@ -97,7 +97,7 @@ func _switch_game_type(selected : int):
 		floating_uma_1.set_defaults([30, 0, -30])
 		floating_uma_2.set_defaults([20, 10, -30])
 
-		floating_uma_1.set_title("Uma (0 or 1 Player >= Return)")
+		floating_uma_1.set_title("Uma (0 or 1 or 3 Players >= Return)")
 		floating_uma_2.set_title("Uma (2 Players >= Return)")
 
 		floating_uma_3.visible = false

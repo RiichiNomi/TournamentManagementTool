@@ -60,20 +60,44 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 text = "00:00:00"
 
-[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
+[node name="MainContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer/MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Standings" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
+layout_mode = 2
+
+[node name="Standings" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/Standings"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Standings" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+[node name="ItemList" type="Tree" parent="VBoxContainer/MainContainer/TabContainer/Standings/Standings"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Hanchan Record" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+[node name="HanchanHistory" type="Tree" parent="VBoxContainer/MainContainer/TabContainer/Standings/Standings"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Hanchan Record" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Hanchan Record" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/Hanchan Record"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Current Round" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+[node name="Current Round" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Current Round" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/Current Round"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
