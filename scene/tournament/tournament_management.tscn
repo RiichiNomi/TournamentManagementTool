@@ -1,11 +1,21 @@
-[gd_scene load_steps=7 format=3 uid="uid://bh0j8j56pkgix"]
+[gd_scene load_steps=13 format=3 uid="uid://bh0j8j56pkgix"]
 
 [ext_resource type="Script" path="res://scene/tournament/TournamentStandings.gd" id="1_idape"]
+[ext_resource type="Script" path="res://scene/tournament/CountdownTimer.gd" id="1_p3fnt"]
 [ext_resource type="Script" path="res://scene/tournament/MainContainer.gd" id="1_xpmcv"]
 [ext_resource type="Script" path="res://scene/tournament/PlayerList.gd" id="2_vfbjs"]
 [ext_resource type="Script" path="res://scene/tournament/PlayerHanchanHistory.gd" id="3_pfn50"]
 [ext_resource type="Script" path="res://scene/tournament/PlayerManagement.gd" id="5_bpmp2"]
+[ext_resource type="Script" path="res://scene/widget/NumericLineEdit.gd" id="5_g344r"]
 [ext_resource type="Script" path="res://scene/tournament/InactivePlayersList.gd" id="6_lsk6h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0ewmx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jujnl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oj22s"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o2sir"]
 
 [node name="TournamentManagement" type="Control"]
 layout_mode = 3
@@ -58,14 +68,23 @@ layout_mode = 2
 text = "Time Until Round End:"
 
 [node name="Timer" type="MarginContainer" parent="VBoxContainer/Header"]
+custom_minimum_size = Vector2(74, 0)
 layout_mode = 2
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
+script = ExtResource("1_p3fnt")
 
-[node name="Label" type="Label" parent="VBoxContainer/Header/Timer"]
+[node name="Time" type="Button" parent="VBoxContainer/Header/Timer"]
 layout_mode = 2
-text = "00:00:00"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_0ewmx")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_jujnl")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_oj22s")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_o2sir")
+text = "--:--:--"
+flat = true
+
+[node name="Timer" type="Timer" parent="VBoxContainer/Header/Timer"]
 
 [node name="MainContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -73,7 +92,7 @@ size_flags_vertical = 3
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer/MainContainer"]
 layout_mode = 2
-current_tab = 3
+current_tab = 2
 script = ExtResource("1_xpmcv")
 
 [node name="Standings" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
@@ -121,6 +140,7 @@ scroll_horizontal_enabled = false
 script = ExtResource("3_pfn50")
 
 [node name="HanchanHistoryContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="HanchanHistory" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer"]
@@ -151,12 +171,160 @@ size_flags_horizontal = 3
 
 [node name="RoundManagementContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
 layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
-[node name="RoundManagement" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer"]
+[node name="RoundManagement" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="ActivePlayersContainer" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ActivePlayersContainer"]
+layout_mode = 2
+text = "Active Players"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ActivePlayersListContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ActivePlayersContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ActivePlayers" type="Tree" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ActivePlayersContainer/ActivePlayersListContainer"]
+layout_mode = 2
+columns = 4
+column_titles_visible = true
+hide_folding = true
+hide_root = true
+select_mode = 1
+script = ExtResource("2_vfbjs")
+
+[node name="ControlsContainer" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TopPadding" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="UnscoredTables" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer"]
+layout_mode = 2
+
+[node name="Left" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/UnscoredTables"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/UnscoredTables/Left"]
+layout_mode = 2
+text = "Unscored Tables"
+
+[node name="Right" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/UnscoredTables"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/UnscoredTables/Right"]
+layout_mode = 2
+text = "0"
+
+[node name="RoundTime" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer"]
+layout_mode = 2
+
+[node name="Left" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/RoundTime"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/RoundTime/Left"]
+layout_mode = 2
+text = "Round Time (Minutes)"
+
+[node name="Right" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/RoundTime"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_bottom = 5
+
+[node name="NumericLineEdit" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/RoundTime/Right"]
+layout_mode = 2
+text = "0"
+placeholder_text = "0"
+script = ExtResource("5_g344r")
+
+[node name="AvoidDuplicates" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer"]
+layout_mode = 2
+
+[node name="Left" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/AvoidDuplicates"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/AvoidDuplicates/Left"]
+layout_mode = 2
+text = "Minimize Duplicate Pairings"
+
+[node name="Right" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/AvoidDuplicates"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_bottom = 5
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/AvoidDuplicates/Right"]
+layout_mode = 2
+button_pressed = true
+
+[node name="SwissBlocks" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer"]
+layout_mode = 2
+
+[node name="Left" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/SwissBlocks"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/SwissBlocks/Left"]
+layout_mode = 2
+text = "Swiss Pairing Blocks"
+
+[node name="Right" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/SwissBlocks"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_bottom = 5
+
+[node name="Selector" type="OptionButton" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/SwissBlocks/Right"]
+layout_mode = 2
+item_count = 5
+selected = 0
+popup/item_0/text = "1"
+popup/item_0/id = 0
+popup/item_1/text = "2"
+popup/item_1/id = 1
+popup/item_2/text = "4"
+popup/item_2/id = 2
+popup/item_3/text = "8"
+popup/item_3/id = 3
+popup/item_4/text = "16"
+popup/item_4/id = 4
+
+[node name="StartRoundButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer"]
+layout_mode = 2
+text = "Start New Round"
+
+[node name="BottomPadding" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
 [node name="PlayerManagementContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
@@ -181,6 +349,7 @@ vertical_alignment = 1
 [node name="ActivePlayersListContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/PlayerManagementContainer/PlayerManagement/ActivePlayersContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/margin_right = 10
 
 [node name="ActivePlayers" type="Tree" parent="VBoxContainer/MainContainer/TabContainer/PlayerManagementContainer/PlayerManagement/ActivePlayersContainer/ActivePlayersListContainer"]
 layout_mode = 2
@@ -227,6 +396,7 @@ vertical_alignment = 1
 [node name="InactivePlayersListContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/PlayerManagementContainer/PlayerManagement/InactivePlayersContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/margin_left = 10
 
 [node name="InactivePlayers" type="Tree" parent="VBoxContainer/MainContainer/TabContainer/PlayerManagementContainer/PlayerManagement/InactivePlayersContainer/InactivePlayersListContainer"]
 layout_mode = 2
@@ -247,6 +417,7 @@ layout_mode = 2
 text = "Edit Players"
 
 [node name="TournamentManagementContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="TournamentManagement" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer"]

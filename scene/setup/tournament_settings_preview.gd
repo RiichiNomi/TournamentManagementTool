@@ -86,7 +86,7 @@ func render():
 	riichi_sticks.set_text("Riichi Sticks", tournament.settings.get_riichi_sticks_strategy_string())
 	generate_seat_winds.set_text("Assign Seat Winds", tournament.settings.get_assign_seat_winds_string())
 
-	time_per_round_minutes.set_text("Time Per Round (Minutes)", str(tournament.settings.time_per_round_minutes))
+	time_per_round_minutes.set_text("Default Round Timer (Minutes)", str(tournament.settings.time_per_round_minutes))
 	if tournament.settings.advanced_settings:
 		score_per_thousand_points.set_text("Score Per 1000 Points", "%.2f" % tournament.settings.score_per_thousand_points)
 
