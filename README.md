@@ -53,9 +53,9 @@ saves the most recent edits to ensure data integrity as much as possible.
   * For convenience, the software should generate a QR code linking to the
     public spreadsheet in a separate window that can then be displayed publicly.
 
-## TODO
-* Add support for top cuts.
-* Implement progressive swiss pairing system.
+## Roadmap for v1.0 Release
+* Add support for an arbitrary number of top cuts.
+* Implement the progressive swiss pairing system.
 * Allow players to be deleted on the tournament creation screen.
 * Allow deletion of erroneously created players, rounds, or tables in the main
   tournament management interface
