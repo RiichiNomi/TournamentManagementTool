@@ -41,6 +41,15 @@ func _ready():
 	submit_table_button.pressed.connect(on_submit_table)
 	cancel_button.pressed.connect(on_cancel)
 
+	if data_store.tournament.settings.game_type == TournamentSettings.GameType.SANMA:
+		player_id_column.set_column_size(3)
+		player_name_column.set_column_size(3)
+		seat_wind_column.set_column_size(3)
+		points_column.set_column_size(3)
+		shuugi_column.set_column_size(3)
+		penalty_column.set_column_size(3)
+		score_column.set_column_size(3)
+
 func initialize(table : Table) -> void:
 	visible = true
 

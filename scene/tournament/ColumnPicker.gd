@@ -6,6 +6,8 @@ class_name ColumnPicker
 @onready var three : OptionButton = $Three
 @onready var four : OptionButton = $Four
 
+var column_size = 4
+
 signal row_changed
 
 func _ready():
@@ -37,7 +39,18 @@ func get_value(index):
 			return four.selected
 
 func get_value_arr():
-	return [one.selected, two.selected, three.selected, four.selected]
+	var values = [one.selected, two.selected, three.selected]
+	if column_size == 4:
+		values.append(four.selected)
+	return values
 
 func _on_wind_changed(_selected):
 	row_changed.emit()
+
+func set_column_size(new_size : int):
+	if new_size != column_size:
+		column_size = new_size
+		if column_size == 3:
+			four.visible = false
+		else:
+			four.visible = true

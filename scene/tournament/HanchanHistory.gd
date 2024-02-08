@@ -7,6 +7,7 @@ class_name HanchanHistory
 @onready var players_tree : Tree = $HistoryPane/HanchanHistory/Players
 
 @onready var score_input : ScoreInput = $ControlsPane/SettingsContainer/Settings
+@onready var hanchan_creation : HanchanCreation = $ControlsPane/SettingsContainer/HanchanCreation
 
 @onready var add_hanchan_button : Button = $HistoryPane/AddHanchanButton
 
@@ -16,15 +17,22 @@ func _ready():
 	add_hanchan_button.pressed.connect(_on_create_hanchan)
 
 	score_input.visible = false
+	hanchan_creation.visible = false
 
 	score_input.submit_table.connect(_on_submit_table)
 	score_input.cancel_edit.connect(_on_cancel_edit)
 
+	hanchan_creation.create_table.connect(_on_create_table)
+	hanchan_creation.cancel_table_creation.connect(_on_cancel_create_table)
+
 func _on_create_hanchan() -> void:
 	history_tree.visible = false
-	add_hanchan_button.visible = false
-
 	players_tree.visible = true
+
+	add_hanchan_button.visible = false
+	hanchan_creation.visible = true
+
+	hanchan_creation.initialize()
 
 func _on_hanchan_selected() -> void:
 	score_input.visible = true
@@ -57,3 +65,17 @@ func _on_cancel_edit() -> void:
 	score_input.visible = false
 	add_hanchan_button.visible = true
 	history_tree.deselect_all()
+
+func _on_create_table(table : Table) -> void:
+	hanchan_creation.visible = false
+	history_tree.visible = true
+	players_tree.visible = false
+	add_hanchan_button.visible = true
+
+	data_store.add_single_table(table)
+
+func _on_cancel_create_table() -> void:
+	hanchan_creation.visible = false
+	history_tree.visible = true
+	players_tree.visible = false
+	add_hanchan_button.visible = true

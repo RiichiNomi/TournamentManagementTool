@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bh0j8j56pkgix"]
+[gd_scene load_steps=24 format=3 uid="uid://bh0j8j56pkgix"]
 
 [ext_resource type="Script" path="res://scene/tournament/TournamentStandings.gd" id="1_idape"]
 [ext_resource type="Script" path="res://scene/tournament/CountdownTimer.gd" id="1_p3fnt"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://scene/tournament/PairingsList.gd" id="7_c2q4b"]
 [ext_resource type="Script" path="res://scene/tournament/ColumnInput.gd" id="8_5cvc0"]
 [ext_resource type="Script" path="res://scene/tournament/ScoreInput.gd" id="8_7kqq6"]
+[ext_resource type="Script" path="res://scene/tournament/HanchanCreation.gd" id="8_mbkqq"]
 [ext_resource type="Script" path="res://scene/tournament/ColumnIdInput.gd" id="8_sx20j"]
 [ext_resource type="Script" path="res://scene/tournament/ColumnLabel.gd" id="9_muekd"]
 [ext_resource type="Script" path="res://scene/tournament/ColumnPicker.gd" id="10_rhuol"]
@@ -212,7 +213,184 @@ size_flags_vertical = 3
 layout_mode = 2
 theme_override_constants/margin_left = 10
 
+[node name="HanchanCreation" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("8_mbkqq")
+
+[node name="RoundName" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/RoundName"]
+layout_mode = 2
+text = "Round 999, Table 999"
+
+[node name="Scorer" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation"]
+layout_mode = 2
+
+[node name="PlayerIdMargin" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/Scorer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="PlayerId" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/Scorer/PlayerIdMargin"]
+layout_mode = 2
+script = ExtResource("8_sx20j")
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/Scorer/PlayerIdMargin/PlayerId"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Player ID
+"
+
+[node name="One" type="SpinBox" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/Scorer/PlayerIdMargin/PlayerId"]
+layout_mode = 2
+size_flags_vertical = 3
+update_on_text_changed = true
+
+[node name="Two" type="SpinBox" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/Scorer/PlayerIdMargin/PlayerId"]
+layout_mode = 2
+size_flags_vertical = 3
+update_on_text_changed = true
+
+[node name="Three" type="SpinBox" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/Scorer/PlayerIdMargin/PlayerId"]
+layout_mode = 2
+size_flags_vertical = 3
+update_on_text_changed = true
+
+[node name="Four" type="SpinBox" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/Scorer/PlayerIdMargin/PlayerId"]
+layout_mode = 2
+size_flags_vertical = 3
+update_on_text_changed = true
+
+[node name="PlayerNameMargin" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/Scorer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="PlayerName" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/Scorer/PlayerNameMargin"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+script = ExtResource("9_muekd")
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/Scorer/PlayerNameMargin/PlayerName"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Name"
+
+[node name="One" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/Scorer/PlayerNameMargin/PlayerName"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Freed Jyanshi 0"
+
+[node name="Two" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/Scorer/PlayerNameMargin/PlayerName"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Freed Jyanshi -1"
+
+[node name="Three" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/Scorer/PlayerNameMargin/PlayerName"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Freed Jyanshi -2"
+
+[node name="Four" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/Scorer/PlayerNameMargin/PlayerName"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Freed Jyanshi -3"
+
+[node name="SeatWindMargin" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/Scorer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="SeatWind" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/Scorer/SeatWindMargin"]
+layout_mode = 2
+script = ExtResource("10_rhuol")
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/Scorer/SeatWindMargin/SeatWind"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Seat Wind"
+
+[node name="One" type="OptionButton" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/Scorer/SeatWindMargin/SeatWind"]
+layout_mode = 2
+size_flags_vertical = 3
+item_count = 4
+selected = 0
+popup/item_0/text = "East"
+popup/item_0/id = 0
+popup/item_1/text = "South"
+popup/item_1/id = 1
+popup/item_2/text = "West"
+popup/item_2/id = 2
+popup/item_3/text = "North"
+popup/item_3/id = 3
+
+[node name="Two" type="OptionButton" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/Scorer/SeatWindMargin/SeatWind"]
+layout_mode = 2
+size_flags_vertical = 3
+item_count = 4
+selected = 0
+popup/item_0/text = "East"
+popup/item_0/id = 0
+popup/item_1/text = "South"
+popup/item_1/id = 1
+popup/item_2/text = "West"
+popup/item_2/id = 2
+popup/item_3/text = "North"
+popup/item_3/id = 3
+
+[node name="Three" type="OptionButton" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/Scorer/SeatWindMargin/SeatWind"]
+layout_mode = 2
+size_flags_vertical = 3
+item_count = 4
+selected = 0
+popup/item_0/text = "East"
+popup/item_0/id = 0
+popup/item_1/text = "South"
+popup/item_1/id = 1
+popup/item_2/text = "West"
+popup/item_2/id = 2
+popup/item_3/text = "North"
+popup/item_3/id = 3
+
+[node name="Four" type="OptionButton" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/Scorer/SeatWindMargin/SeatWind"]
+layout_mode = 2
+size_flags_vertical = 3
+item_count = 4
+selected = 0
+popup/item_0/text = "East"
+popup/item_0/id = 0
+popup/item_1/text = "South"
+popup/item_1/id = 1
+popup/item_2/text = "West"
+popup/item_2/id = 2
+popup/item_3/text = "North"
+popup/item_3/id = 3
+
+[node name="ButtonsContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="Buttons" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/ButtonsContainer"]
+layout_mode = 2
+
+[node name="Confirm" type="Button" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/ButtonsContainer/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Create Hanchan"
+
+[node name="Cancel" type="Button" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/HanchanCreation/ButtonsContainer/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel"
+
 [node name="Settings" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("8_7kqq6")

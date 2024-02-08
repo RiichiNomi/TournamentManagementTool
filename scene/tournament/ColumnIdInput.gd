@@ -8,6 +8,8 @@ class_name ColumnIdInput
 @onready var three : SpinBox = $Three
 @onready var four : SpinBox = $Four
 
+var column_size = 4
+
 signal id_changed
 
 func _ready():
@@ -31,7 +33,10 @@ func set_value(index, value):
 			four.value = value
 
 func get_value_arr():
-	return [int(one.value), int(two.value), int(three.value), int(four.value)]
+	var values = [int(one.value), int(two.value), int(three.value)]
+	if column_size == 4:
+		values.append(int(four.value))
+	return values
 
 func on_changed(value, index):
 	id_changed.emit(value, index)
@@ -46,4 +51,13 @@ func on_players_updated():
 	one.max_value = max_id
 	two.max_value = max_id
 	three.max_value = max_id
-	four.max_value = max_id
+	if column_size == 4:
+		four.max_value = max_id
+
+func set_column_size(new_size : int):
+	if new_size != column_size:
+		column_size = new_size
+		if column_size == 3:
+			four.visible = false
+		else:
+			four.visible = true

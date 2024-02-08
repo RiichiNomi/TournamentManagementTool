@@ -13,6 +13,10 @@ signal round_start
 func start_round(time_secs : float):
     round_start.emit(time_secs)
 
+func add_single_table(new_table : Table) -> void:
+    tournament.tables.append(new_table)
+    standings_updated.emit()
+
 func add_round(new_tables) -> void:
     for table in new_tables:
         table.round_id = tournament.next_round
@@ -100,6 +104,14 @@ func get_active_tables_count() -> int:
         if not table.is_complete(tournament.settings):
             count += 1
     return count
+
+func get_next_table_id(round_id : int) -> int:
+    var tables = tournament.tables
+    var max_id = 0
+    for table in tables:
+        if table.round_id == round_id and table.table_id > max_id:
+            max_id = table.table_id
+    return max_id + 1
 
 func load_tournament(new_tournament : Tournament) -> void:
     tournament = new_tournament

@@ -6,6 +6,8 @@ class_name ColumnInput
 @onready var three : NumericLineEdit = $Three
 @onready var four : NumericLineEdit = $Four
 
+var column_size = 4
+
 signal row_changed
 
 func _ready():
@@ -41,7 +43,18 @@ func get_value(index):
 			return four.get_value()
 
 func get_value_arr():
-	return [one.get_value(), two.get_value(), three.get_value(), four.get_value()]
+	var values = [one.get_value(), two.get_value(), three.get_value()]
+	if column_size == 4:
+		values.append(four.get_value())
+	return values
 
 func _on_change(_new_text : String):
 	row_changed.emit()
+
+func set_column_size(new_size : int):
+	if new_size != column_size:
+		column_size = new_size
+		if column_size == 3:
+			four.visible = false
+		else:
+			four.visible = true
