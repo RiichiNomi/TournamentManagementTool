@@ -53,6 +53,13 @@ saves the most recent edits to ensure data integrity as much as possible.
   * For convenience, the software should generate a QR code linking to the
     public spreadsheet in a separate window that can then be displayed publicly.
 
+## TODO
+* Add support for top cuts.
+* Implement progressive swiss pairing system.
+* Allow players to be deleted on the tournament creation screen.
+* Allow deletion of erroneously created players, rounds, or tables in the main
+  tournament management interface
+
 ## Contributing
 It should be possible to clone this repository and directly import it into Godot
 4.2.x or later.

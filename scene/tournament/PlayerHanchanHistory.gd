@@ -6,7 +6,6 @@ class_name PlayerHanchanHistory
 var shuugi
 var player_inspected : int = 0
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	shuugi = data_store.tournament.settings.shuugi
 	if shuugi:
@@ -38,6 +37,8 @@ func _ready():
 	
 	render()
 
+	data_store.standings_updated.connect(render)
+
 func inspect_player(player_id : int) -> void:
 	player_inspected = player_id
 	render()
@@ -53,7 +54,7 @@ func render() -> void:
 		hanchan_history = data_store.get_hanchan_history_for_player(player_inspected)
 
 	for table in hanchan_history:
-		var table_scores = table.score_table(data_store.tournament.settings)
+		var table_scores = table.score_table_arr(data_store.tournament.settings)
 
 		var table_row : TreeItem = create_item()
 		table_row.set_cell_mode(0, TreeItem.CELL_MODE_STRING)
@@ -78,7 +79,7 @@ func render() -> void:
 			player_row.set_text(1, player_data.name)
 			if table.is_complete(data_store.tournament.settings):
 				player_row.set_text(2, str(table.final_points[index]))
-				var player_score = table_scores[player_data.player_id]
+				var player_score = table_scores[index]
 				var score_string = "%.1f" % [player_score] if player_score >= 0 else "(%.1f)" % [abs(player_score)]
 				if shuugi:
 					player_row.set_text(3, str(table.final_shuugi[index]))

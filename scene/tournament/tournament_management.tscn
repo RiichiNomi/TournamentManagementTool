@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bh0j8j56pkgix"]
+[gd_scene load_steps=23 format=3 uid="uid://bh0j8j56pkgix"]
 
 [ext_resource type="Script" path="res://scene/tournament/TournamentStandings.gd" id="1_idape"]
 [ext_resource type="Script" path="res://scene/tournament/CountdownTimer.gd" id="1_p3fnt"]
@@ -11,7 +11,13 @@
 [ext_resource type="Script" path="res://scene/tournament/RoundManagement.gd" id="6_6eqxs"]
 [ext_resource type="Script" path="res://scene/tournament/InactivePlayersList.gd" id="6_lsk6h"]
 [ext_resource type="Script" path="res://scene/tournament/RoundManagementSettings.gd" id="7_8612w"]
+[ext_resource type="Script" path="res://scene/tournament/HanchanHistory.gd" id="7_a7c8l"]
 [ext_resource type="Script" path="res://scene/tournament/PairingsList.gd" id="7_c2q4b"]
+[ext_resource type="Script" path="res://scene/tournament/ColumnInput.gd" id="8_5cvc0"]
+[ext_resource type="Script" path="res://scene/tournament/ScoreInput.gd" id="8_7kqq6"]
+[ext_resource type="Script" path="res://scene/tournament/ColumnIdInput.gd" id="8_sx20j"]
+[ext_resource type="Script" path="res://scene/tournament/ColumnLabel.gd" id="9_muekd"]
+[ext_resource type="Script" path="res://scene/tournament/ColumnPicker.gd" id="10_rhuol"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0ewmx"]
 
@@ -97,7 +103,7 @@ size_flags_vertical = 3
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer/MainContainer"]
 layout_mode = 2
-current_tab = 2
+current_tab = 1
 script = ExtResource("1_xpmcv")
 
 [node name="Standings" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
@@ -145,22 +151,33 @@ scroll_horizontal_enabled = false
 script = ExtResource("3_pfn50")
 
 [node name="HanchanHistoryContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
-visible = false
 layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
 [node name="HanchanHistory" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer"]
 layout_mode = 2
+script = ExtResource("7_a7c8l")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory"]
+[node name="HistoryPane" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HanchanHistory" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/HistoryPane"]
+layout_mode = 2
+text = "Hanchan Record"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HanchanHistory" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/HistoryPane"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/margin_right = 10
 
-[node name="HanchanHistory" type="Tree" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/VBoxContainer/HanchanHistory"]
+[node name="HanchanHistory" type="Tree" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/HistoryPane/HanchanHistory"]
 layout_mode = 2
 size_flags_horizontal = 3
 column_titles_visible = true
@@ -170,11 +187,416 @@ select_mode = 1
 scroll_horizontal_enabled = false
 script = ExtResource("3_pfn50")
 
-[node name="Management" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory"]
+[node name="Players" type="Tree" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/HistoryPane/HanchanHistory"]
+visible = false
+layout_mode = 2
+columns = 4
+column_titles_visible = true
+hide_folding = true
+hide_root = true
+script = ExtResource("2_vfbjs")
+
+[node name="AddHanchanButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/HistoryPane"]
+layout_mode = 2
+text = "Manual Hanchan Creation"
+
+[node name="ControlsPane" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory"]
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="TopPadding" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SettingsContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="Settings" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("8_7kqq6")
+
+[node name="RoundName" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/RoundName"]
+layout_mode = 2
+text = "Round 999, Table 999"
+
+[node name="Scorer" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings"]
+layout_mode = 2
+
+[node name="PlayerIdMargin" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="PlayerId" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PlayerIdMargin"]
+layout_mode = 2
+script = ExtResource("8_sx20j")
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PlayerIdMargin/PlayerId"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Player ID
+"
+
+[node name="One" type="SpinBox" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PlayerIdMargin/PlayerId"]
+layout_mode = 2
+size_flags_vertical = 3
+value = 1.0
+update_on_text_changed = true
+
+[node name="Two" type="SpinBox" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PlayerIdMargin/PlayerId"]
+layout_mode = 2
+size_flags_vertical = 3
+value = 1.0
+update_on_text_changed = true
+
+[node name="Three" type="SpinBox" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PlayerIdMargin/PlayerId"]
+layout_mode = 2
+size_flags_vertical = 3
+value = 1.0
+update_on_text_changed = true
+
+[node name="Four" type="SpinBox" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PlayerIdMargin/PlayerId"]
+layout_mode = 2
+size_flags_vertical = 3
+value = 1.0
+update_on_text_changed = true
+
+[node name="PlayerNameMargin" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="PlayerName" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PlayerNameMargin"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+script = ExtResource("9_muekd")
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PlayerNameMargin/PlayerName"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Name"
+
+[node name="One" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PlayerNameMargin/PlayerName"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Freed Jyanshi 0"
+
+[node name="Two" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PlayerNameMargin/PlayerName"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Freed Jyanshi -1"
+
+[node name="Three" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PlayerNameMargin/PlayerName"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Freed Jyanshi -2"
+
+[node name="Four" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PlayerNameMargin/PlayerName"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Freed Jyanshi -3"
+
+[node name="SeatWindMargin" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="SeatWind" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/SeatWindMargin"]
+layout_mode = 2
+script = ExtResource("10_rhuol")
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/SeatWindMargin/SeatWind"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Seat Wind"
+
+[node name="One" type="OptionButton" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/SeatWindMargin/SeatWind"]
+layout_mode = 2
+size_flags_vertical = 3
+item_count = 4
+selected = 0
+popup/item_0/text = "East"
+popup/item_0/id = 0
+popup/item_1/text = "South"
+popup/item_1/id = 1
+popup/item_2/text = "West"
+popup/item_2/id = 2
+popup/item_3/text = "North"
+popup/item_3/id = 3
+
+[node name="Two" type="OptionButton" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/SeatWindMargin/SeatWind"]
+layout_mode = 2
+size_flags_vertical = 3
+item_count = 4
+selected = 0
+popup/item_0/text = "East"
+popup/item_0/id = 0
+popup/item_1/text = "South"
+popup/item_1/id = 1
+popup/item_2/text = "West"
+popup/item_2/id = 2
+popup/item_3/text = "North"
+popup/item_3/id = 3
+
+[node name="Three" type="OptionButton" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/SeatWindMargin/SeatWind"]
+layout_mode = 2
+size_flags_vertical = 3
+item_count = 4
+selected = 0
+popup/item_0/text = "East"
+popup/item_0/id = 0
+popup/item_1/text = "South"
+popup/item_1/id = 1
+popup/item_2/text = "West"
+popup/item_2/id = 2
+popup/item_3/text = "North"
+popup/item_3/id = 3
+
+[node name="Four" type="OptionButton" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/SeatWindMargin/SeatWind"]
+layout_mode = 2
+size_flags_vertical = 3
+item_count = 4
+selected = 0
+popup/item_0/text = "East"
+popup/item_0/id = 0
+popup/item_1/text = "South"
+popup/item_1/id = 1
+popup/item_2/text = "West"
+popup/item_2/id = 2
+popup/item_3/text = "North"
+popup/item_3/id = 3
+
+[node name="PointsMargin" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="Points" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PointsMargin"]
+layout_mode = 2
+script = ExtResource("8_5cvc0")
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PointsMargin/Points"]
+layout_mode = 2
+text = "Points"
+
+[node name="One" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PointsMargin/Points"]
+layout_mode = 2
+text = "25000"
+placeholder_text = "25000"
+script = ExtResource("5_g344r")
+
+[node name="Two" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PointsMargin/Points"]
+layout_mode = 2
+text = "25000"
+placeholder_text = "25000"
+script = ExtResource("5_g344r")
+
+[node name="Three" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PointsMargin/Points"]
+layout_mode = 2
+text = "25000"
+placeholder_text = "25000"
+script = ExtResource("5_g344r")
+
+[node name="Four" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PointsMargin/Points"]
+layout_mode = 2
+text = "25000"
+placeholder_text = "25000"
+script = ExtResource("5_g344r")
+
+[node name="ShuugiMargin" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="Shuugi" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/ShuugiMargin"]
+layout_mode = 2
+script = ExtResource("8_5cvc0")
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/ShuugiMargin/Shuugi"]
+layout_mode = 2
+text = "Shuugi"
+
+[node name="One" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/ShuugiMargin/Shuugi"]
+layout_mode = 2
+text = "10"
+placeholder_text = "10"
+script = ExtResource("5_g344r")
+
+[node name="Two" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/ShuugiMargin/Shuugi"]
+layout_mode = 2
+text = "10"
+placeholder_text = "10"
+script = ExtResource("5_g344r")
+
+[node name="Three" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/ShuugiMargin/Shuugi"]
+layout_mode = 2
+text = "10"
+placeholder_text = "10"
+script = ExtResource("5_g344r")
+
+[node name="Four" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/ShuugiMargin/Shuugi"]
+layout_mode = 2
+text = "10"
+placeholder_text = "10"
+script = ExtResource("5_g344r")
+
+[node name="PenaltyMargin" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="Penalty" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PenaltyMargin"]
+layout_mode = 2
+script = ExtResource("8_5cvc0")
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PenaltyMargin/Penalty"]
+layout_mode = 2
+text = "Penalty"
+
+[node name="One" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PenaltyMargin/Penalty"]
+layout_mode = 2
+text = "0"
+placeholder_text = "0"
+script = ExtResource("5_g344r")
+
+[node name="Two" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PenaltyMargin/Penalty"]
+layout_mode = 2
+text = "0"
+placeholder_text = "0"
+script = ExtResource("5_g344r")
+
+[node name="Three" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PenaltyMargin/Penalty"]
+layout_mode = 2
+text = "0"
+placeholder_text = "0"
+script = ExtResource("5_g344r")
+
+[node name="Four" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PenaltyMargin/Penalty"]
+layout_mode = 2
+text = "0"
+placeholder_text = "0"
+script = ExtResource("5_g344r")
+
+[node name="ScoreMargin" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="Score" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/ScoreMargin"]
+layout_mode = 2
+script = ExtResource("8_5cvc0")
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/ScoreMargin/Score"]
+layout_mode = 2
+text = "Score"
+
+[node name="One" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/ScoreMargin/Score"]
+layout_mode = 2
+text = "0.0"
+placeholder_text = "0.0"
+editable = false
+script = ExtResource("5_g344r")
+
+[node name="Two" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/ScoreMargin/Score"]
+layout_mode = 2
+text = "0.0"
+placeholder_text = "0.0"
+editable = false
+script = ExtResource("5_g344r")
+
+[node name="Three" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/ScoreMargin/Score"]
+layout_mode = 2
+text = "0.0"
+placeholder_text = "0.0"
+editable = false
+script = ExtResource("5_g344r")
+
+[node name="Four" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/ScoreMargin/Score"]
+layout_mode = 2
+text = "0.0"
+placeholder_text = "0.0"
+editable = false
+script = ExtResource("5_g344r")
+
+[node name="MissingContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="Root" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/MissingContainer"]
+layout_mode = 2
+
+[node name="Labels" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/MissingContainer/Root"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Points" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/MissingContainer/Root/Labels"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/MissingContainer/Root/Labels/Points"]
+layout_mode = 2
+text = "Missing Points"
+vertical_alignment = 1
+
+[node name="Shuugi" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/MissingContainer/Root/Labels"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/MissingContainer/Root/Labels/Shuugi"]
+layout_mode = 2
+text = "Missing Shuugi"
+vertical_alignment = 1
+
+[node name="Values" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/MissingContainer/Root"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Points" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/MissingContainer/Root/Values"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/MissingContainer/Root/Values/Points"]
+layout_mode = 2
+text = "0"
+vertical_alignment = 1
+
+[node name="Shuugi" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/MissingContainer/Root/Values"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/MissingContainer/Root/Values/Shuugi"]
+layout_mode = 2
+text = "0	"
+vertical_alignment = 1
+
+[node name="ButtonsContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="Buttons" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/ButtonsContainer"]
+layout_mode = 2
+
+[node name="Confirm" type="Button" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/ButtonsContainer/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Submit Scores"
+
+[node name="Cancel" type="Button" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/ButtonsContainer/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel"
+
+[node name="BottomPadding" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane"]
+layout_mode = 2
+size_flags_vertical = 3
+
 [node name="RoundManagementContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10

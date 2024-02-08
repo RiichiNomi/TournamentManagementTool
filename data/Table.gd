@@ -21,8 +21,8 @@ func is_complete(settings : TournamentSettings) -> bool:
   var shuugi_complete = final_shuugi.size() == player_ids.size()
   return scores_complete and (not settings.shuugi or shuugi_complete)
 
-func score_table(settings : TournamentSettings) -> Dictionary:
-  var scores = {}
+func score_table_arr(settings : TournamentSettings) -> Array:
+  var scores = []
   if not is_complete(settings):
     # Don't score games that aren't fully scored
     return scores
@@ -306,10 +306,20 @@ func score_table(settings : TournamentSettings) -> Dictionary:
     for index in range(scores_post_penalties.size()):
       shuugi_scores.append(scores_post_penalties[index] + (settings.end_shuugi - final_shuugi[index]) / settings.score_per_shuugi)
     for index in range(shuugi_scores.size()):
-      scores[player_ids[index]] = shuugi_scores[index]
+      scores.append(shuugi_scores[index])
   else:
     for index in range(scores_post_penalties.size()):
-      scores[player_ids[index]] = scores_post_penalties[index]
-  
+      scores.append(scores_post_penalties[index])
 
   return scores
+
+func score_table(settings : TournamentSettings) -> Dictionary:
+  if not is_complete(settings):
+    # Don't score games that aren't fully scored
+    return {}
+
+  var scores = score_table_arr(settings)
+  var result = {}
+  for index in range(player_ids.size()):
+    result[player_ids[index]] = scores[index]
+  return result
