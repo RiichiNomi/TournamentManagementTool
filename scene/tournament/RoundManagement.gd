@@ -70,7 +70,7 @@ func _create_random_pairings(pairing_settings : RoundManagementSettings.RoundPai
 
 	var byes = []
 
-	if pairing_settings.assign_subs:
+	if pairing_settings.assign_subs and players.size() % table_size != 0:
 		var subs_needed = table_size - (players.size() % table_size)
 		for i in range(subs_needed):
 			players.append(0)
