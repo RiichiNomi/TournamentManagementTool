@@ -248,25 +248,21 @@ text = "Player ID
 [node name="One" type="SpinBox" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PlayerIdMargin/PlayerId"]
 layout_mode = 2
 size_flags_vertical = 3
-value = 1.0
 update_on_text_changed = true
 
 [node name="Two" type="SpinBox" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PlayerIdMargin/PlayerId"]
 layout_mode = 2
 size_flags_vertical = 3
-value = 1.0
 update_on_text_changed = true
 
 [node name="Three" type="SpinBox" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PlayerIdMargin/PlayerId"]
 layout_mode = 2
 size_flags_vertical = 3
-value = 1.0
 update_on_text_changed = true
 
 [node name="Four" type="SpinBox" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PlayerIdMargin/PlayerId"]
 layout_mode = 2
 size_flags_vertical = 3
-value = 1.0
 update_on_text_changed = true
 
 [node name="PlayerNameMargin" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer"]

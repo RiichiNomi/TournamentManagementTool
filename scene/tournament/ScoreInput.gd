@@ -57,9 +57,11 @@ func initialize(table : Table) -> void:
 	for i in range(table.player_ids.size()):
 		if table.player_ids.size() > i:
 			player_id_column.set_value(i, table.player_ids[i])
+			set_player_name(table.player_ids[i], i)
 		else:
 			player_id_column.set_value(i, 0)
 			score_column.set_value(i, 0.0)
+			set_player_name(0, i)
 
 		if table.player_seats.size() > i:
 			seat_wind_column.set_value(i, table.player_seats[i])

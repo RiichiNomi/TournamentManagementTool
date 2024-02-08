@@ -17,11 +17,20 @@ func _ready():
 	data_store.players_updated.connect(render_players)
 	render_players()
 
+	empty_clicked.connect(_empty_clicked)
+	nothing_selected.connect(_clear_selection)
+
 func selected_id() -> int:
 	var selected = get_selected()
 	if selected:
 		return int(selected.get_text(0))
 	return 0
+
+func _empty_clicked(_position, _mouse_button_index):
+	deselect_all()
+
+func _clear_selection():
+	deselect_all()
 
 func render_players() -> void:
 	clear()
