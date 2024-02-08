@@ -10,6 +10,7 @@ class_name TournamentStandings
 func _ready():
 	data_store.standings_updated.connect(_on_standings_updated)
 	player_table.item_selected.connect(_on_player_selected)
+	player_table.player_deselected.connect(_on_player_selected)
 
 func render() -> void:
 	render_players()

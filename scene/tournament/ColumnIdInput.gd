@@ -31,7 +31,7 @@ func set_value(index, value):
 			four.value = value
 
 func get_value_arr():
-	return [one.value, two.value, three.value, four.value]
+	return [int(one.value), int(two.value), int(three.value), int(four.value)]
 
 func on_changed(value, index):
 	id_changed.emit(value, index)

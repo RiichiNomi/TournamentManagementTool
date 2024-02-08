@@ -3,6 +3,8 @@ class_name PlayerList
 
 @onready var data_store : DataStore = get_node("/root/DataStore")
 
+signal player_deselected
+
 func _ready():
 	set_column_title(0, "Player ID")
 	set_column_title(1, "Player Name")
@@ -28,9 +30,11 @@ func selected_id() -> int:
 
 func _empty_clicked(_position, _mouse_button_index):
 	deselect_all()
+	player_deselected.emit()
 
 func _clear_selection():
 	deselect_all()
+	player_deselected.emit()
 
 func render_players() -> void:
 	clear()

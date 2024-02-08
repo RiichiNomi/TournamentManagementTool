@@ -23,12 +23,12 @@ func add_round(new_tables) -> void:
 func update_table(new_table : Table) -> void:
     var updated_table = get_table(new_table.round_id, new_table.table_id)
 
-    updated_table.player_ids = new_table.player_ids.duplicate()
-    updated_table.player_seats = new_table.player_seats.duplicate()
+    updated_table.player_ids = new_table.player_ids
+    updated_table.player_seats = new_table.player_seats
 
-    updated_table.final_points = new_table.final_points.duplicate()
-    updated_table.final_shuugi = new_table.final_shuugi.duplicate()
-    updated_table.penalties = new_table.penalties.duplicate()
+    updated_table.final_points = new_table.final_points
+    updated_table.final_shuugi = new_table.final_shuugi
+    updated_table.penalties = new_table.penalties
 
     updated_table.left_over_kyotaku = new_table.left_over_kyotaku
 
