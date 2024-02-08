@@ -56,3 +56,4 @@ func _on_submit_table(table : Table) -> void:
 func _on_cancel_edit() -> void:
 	score_input.visible = false
 	add_hanchan_button.visible = true
+	history_tree.deselect_all()

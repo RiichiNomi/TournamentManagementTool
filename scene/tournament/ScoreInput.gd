@@ -39,7 +39,7 @@ func _ready():
 	penalty_column.row_changed.connect(on_score_change)
 
 	submit_table_button.pressed.connect(on_submit_table)
-	submit_table_button.pressed.connect(on_cancel)
+	cancel_button.pressed.connect(on_cancel)
 
 func initialize(table : Table) -> void:
 	visible = true
