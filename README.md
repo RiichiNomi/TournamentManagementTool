@@ -54,8 +54,8 @@ saves the most recent edits to ensure data integrity as much as possible.
     public spreadsheet in a separate window that can then be displayed publicly.
 
 ## Roadmap for v1.0 Release
-* Add support for an arbitrary number of top cuts.
 * Implement the progressive swiss pairing system.
+* Allow sorting of players by name or current score in addition to ID.
 * Allow players to be deleted on the tournament creation screen.
 * Allow deletion of erroneously created players, rounds, or tables in the main
   tournament management interface

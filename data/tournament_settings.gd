@@ -1,4 +1,3 @@
-extends Resource
 class_name TournamentSettings
 
 enum GameType { YONMA, SANMA }
@@ -38,6 +37,52 @@ var shuugi : bool = false
 var start_shuugi : float = 10
 var end_shuugi : float = 10
 var score_per_shuugi : float = 0.5
+
+func serialize() -> Dictionary:
+    return {
+        "game_type": game_type,
+        "uma_type": uma_type,
+        "fixed_uma": fixed_uma,
+        "floating_uma_1": floating_uma_1,
+        "floating_uma_2": floating_uma_2,
+        "floating_uma_3": floating_uma_3,
+        "tiebreak_strategy": tiebreak_strategy,
+        "start_points": start_points,
+        "return_points": return_points,
+        "oka": oka,
+        "pairing_system": pairing_system,
+        "time_per_round_minutes": time_per_round_minutes,
+        "assign_seat_winds": assign_seat_winds,
+        "riichi_sticks_strategy": riichi_sticks_strategy,
+        "advanced_settings": advanced_settings,
+        "score_per_thousand_points": score_per_thousand_points,
+        "shuugi": shuugi,
+        "start_shuugi": start_shuugi,
+        "end_shuugi": end_shuugi,
+        "score_per_shuugi": score_per_shuugi
+    }
+
+func deserialize(data : Dictionary):
+    game_type = data["game_type"]
+    uma_type = data["uma_type"]
+    fixed_uma = data["fixed_uma"]
+    floating_uma_1 = data["floating_uma_1"]
+    floating_uma_2 = data["floating_uma_2"]
+    floating_uma_3 = data["floating_uma_3"]
+    tiebreak_strategy = data["tiebreak_strategy"]
+    start_points = data["start_points"]
+    return_points = data["return_points"]
+    oka = data["oka"]
+    pairing_system = data["pairing_system"]
+    time_per_round_minutes = data["time_per_round_minutes"]
+    assign_seat_winds = data["assign_seat_winds"]
+    riichi_sticks_strategy = data["riichi_sticks_strategy"]
+    advanced_settings = data["advanced_settings"]
+    score_per_thousand_points = data["score_per_thousand_points"]
+    shuugi = data["shuugi"]
+    start_shuugi = data["start_shuugi"]
+    end_shuugi = data["end_shuugi"]
+    score_per_shuugi = data["score_per_shuugi"]
 
 func get_game_type_string() -> String:
     match game_type:

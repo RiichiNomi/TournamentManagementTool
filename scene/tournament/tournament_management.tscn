@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bh0j8j56pkgix"]
+[gd_scene load_steps=28 format=3 uid="uid://bh0j8j56pkgix"]
 
 [ext_resource type="Script" path="res://scene/tournament/TournamentStandings.gd" id="1_idape"]
 [ext_resource type="Script" path="res://scene/tournament/CountdownTimer.gd" id="1_p3fnt"]
@@ -19,6 +19,10 @@
 [ext_resource type="Script" path="res://scene/tournament/ColumnIdInput.gd" id="8_sx20j"]
 [ext_resource type="Script" path="res://scene/tournament/ColumnLabel.gd" id="9_muekd"]
 [ext_resource type="Script" path="res://scene/tournament/ColumnPicker.gd" id="10_rhuol"]
+[ext_resource type="Script" path="res://scene/tournament/TournamentManagement.gd" id="20_kwbgv"]
+[ext_resource type="Script" path="res://scene/tournament/CutManagement.gd" id="21_d33wi"]
+[ext_resource type="Script" path="res://scene/tournament/CutCreation.gd" id="22_owihm"]
+[ext_resource type="Script" path="res://scene/tournament/CsvExport.gd" id="23_esrj1"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0ewmx"]
 
@@ -104,7 +108,7 @@ size_flags_vertical = 3
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer/MainContainer"]
 layout_mode = 2
-current_tab = 1
+current_tab = 4
 script = ExtResource("1_xpmcv")
 
 [node name="Standings" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
@@ -152,6 +156,7 @@ scroll_horizontal_enabled = false
 script = ExtResource("3_pfn50")
 
 [node name="HanchanHistoryContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
@@ -1108,9 +1113,215 @@ layout_mode = 2
 text = "Edit Players"
 
 [node name="TournamentManagementContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
-visible = false
 layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
-[node name="TournamentManagement" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer"]
+[node name="TournamentManagement" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("20_kwbgv")
+
+[node name="Controls" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TopPadding" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/Controls"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CutButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/Controls"]
+layout_mode = 2
+text = "Cut to Top Players"
+
+[node name="ManageCutsButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/Controls"]
+layout_mode = 2
+text = "Manage Cuts"
+
+[node name="SaveButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/Controls"]
+layout_mode = 2
+text = "Save Tournament Data to File"
+
+[node name="ExportCsvButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/Controls"]
+layout_mode = 2
+text = "Export Tournament Data to CSV"
+
+[node name="BottomPadding" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/Controls"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RightPane" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CutManagement" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane"]
+visible = false
+layout_mode = 2
+script = ExtResource("21_d33wi")
+
+[node name="CutsTree" type="Tree" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutManagement"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 3
+column_titles_visible = true
+hide_folding = true
+hide_root = true
+select_mode = 1
+
+[node name="DeleteButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutManagement"]
+layout_mode = 2
+text = "Delete Cut"
+
+[node name="ExitButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutManagement"]
+layout_mode = 2
+text = "Cancel"
+
+[node name="CutCreation" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("22_owihm")
+
+[node name="TopPadding" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutCreation"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Error" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutCreation"]
+layout_mode = 2
+
+[node name="NotEnoughRoundsLabel" type="Label" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutCreation/Error"]
+layout_mode = 2
+text = "Not enough rounds to create a cut!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TiesLabel" type="Label" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutCreation/Error"]
+layout_mode = 2
+text = "Due to ties, too many players were added to the cut.
+Manually resolve tiebreaks via the Player Management tab before continuing."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutCreation/Error"]
+layout_mode = 2
+text = "I Understand"
+
+[node name="Control" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutCreation"]
+layout_mode = 2
+
+[node name="CutStartRoundContainer" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutCreation/Control"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutCreation/Control/CutStartRoundContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cut Start Round"
+
+[node name="NumericLineEdit" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutCreation/Control/CutStartRoundContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1"
+placeholder_text = "1"
+editable = false
+script = ExtResource("5_g344r")
+
+[node name="CutEndRoundContainer" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutCreation/Control"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutCreation/Control/CutEndRoundContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cut End Round"
+
+[node name="NumericLineEdit" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutCreation/Control/CutEndRoundContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1"
+placeholder_text = "1"
+editable = false
+script = ExtResource("5_g344r")
+
+[node name="PlayerCountContainer" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutCreation/Control"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutCreation/Control/PlayerCountContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Player Count"
+
+[node name="NumericLineEdit" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutCreation/Control/PlayerCountContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "8"
+placeholder_text = "8"
+script = ExtResource("5_g344r")
+
+[node name="ScoreModificationContainer" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutCreation/Control"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutCreation/Control/ScoreModificationContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Score Modification"
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutCreation/Control/ScoreModificationContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 3
+selected = 0
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Halved"
+popup/item_1/id = 1
+popup/item_2/text = "Zeroed"
+popup/item_2/id = 2
+
+[node name="Buttons" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutCreation/Control"]
+layout_mode = 2
+
+[node name="ConfirmButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutCreation/Control/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Confirm"
+
+[node name="CancelButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutCreation/Control/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel"
+
+[node name="BottomPadding" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutCreation"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CsvExport" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("23_esrj1")
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CsvExport"]
+layout_mode = 2
+item_count = 2
+selected = 0
+popup/item_0/text = "Players"
+popup/item_0/id = 0
+popup/item_1/text = "Tables"
+popup/item_1/id = 1
+
+[node name="CsvBox" type="TextEdit" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CsvExport"]
+layout_mode = 2
+size_flags_vertical = 3
+editable = false
+
+[node name="DoneCopying" type="Button" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CsvExport"]
+layout_mode = 2
+text = "Done"
+
+[node name="FileDialog" type="FileDialog" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement"]
+title = "Save Tournament File"
+initial_position = 2
+size = Vector2i(800, 600)
+mode_overrides_title = false
+access = 2

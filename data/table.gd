@@ -1,4 +1,3 @@
-extends Resource
 class_name Table
 
 enum Wind { EAST, SOUTH, WEST, NORTH }
@@ -15,6 +14,31 @@ var final_shuugi = []
 var penalties = []
 
 var left_over_kyotaku : float = 0
+
+func serialize() -> Dictionary:
+  var result = {
+    "table_id": table_id,
+    "round_id": round_id,
+    "cut_id": cut_id,
+    "player_ids": player_ids,
+    "player_seats": player_seats,
+    "final_points": final_points,
+    "final_shuugi": final_shuugi,
+    "penalties": penalties,
+    "left_over_kyotaku": left_over_kyotaku
+  }
+  return result
+
+func deserialize(data : Dictionary):
+  table_id = data["table_id"]
+  round_id = data["round_id"]
+  cut_id = data["cut_id"]
+  player_ids = data["player_ids"]
+  player_seats = data["player_seats"]
+  final_points = data["final_points"]
+  final_shuugi = data["final_shuugi"]
+  penalties = data["penalties"]
+  left_over_kyotaku = data["left_over_kyotaku"]
 
 func is_complete(settings : TournamentSettings) -> bool:
   var scores_complete = final_points.size() == player_ids.size()
