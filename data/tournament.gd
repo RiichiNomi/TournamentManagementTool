@@ -65,8 +65,9 @@ func calculate_scores() -> Dictionary:
 
 	var all_tables = tables.duplicate()
 
-	registered_players.append_array(inactive_players)
-	inactive_players = []
+	if cuts.size() > 0:
+		registered_players.append_array(inactive_players)
+		inactive_players = []
 
 	for cut in cuts:
 		var deleted_indices = []

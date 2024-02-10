@@ -121,6 +121,9 @@ func load_tournament(new_tournament : Tournament) -> void:
 	for player in tournament.registered_players:
 		players_by_id[player.id] = player
 	
+	for player in tournament.inactive_players:
+		players_by_id[player.id] = player
+	
 	scores = tournament.calculate_scores()
 
 	get_window().title = tournament.name
