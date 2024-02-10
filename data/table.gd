@@ -57,7 +57,7 @@ func score_table_arr(settings : TournamentSettings) -> Array:
   var max_score = -100000
   var max_indices = []
   for score in final_points:
-    var net_score = (score - (settings.return_points * settings.score_per_thousand_points)) / 1000
+    var net_score = (score - settings.return_points) / 1000
     if net_score > max_score:
       max_score = net_score
     net.append(net_score)
@@ -319,16 +319,20 @@ func score_table_arr(settings : TournamentSettings) -> Array:
         for index in range(net.size()):
           if net[index] == max_score:
             post_uma_scores[index] += left_over_kyotaku / max_indices.size()
+  
+  var scores_per_thousand = []
+  for score in post_uma_scores:
+    scores_per_thousand.append(score * settings.score_per_thousand_points)
 
   # Apply penalties
-  var scores_post_penalties = post_uma_scores.duplicate()
+  var scores_post_penalties = scores_per_thousand.duplicate()
   for index in range(scores_post_penalties.size()):
     scores_post_penalties[index] -= penalties[index]
 
   if settings.shuugi:
     var shuugi_scores = []
     for index in range(scores_post_penalties.size()):
-      shuugi_scores.append(scores_post_penalties[index] + (settings.end_shuugi - final_shuugi[index]) / settings.score_per_shuugi)
+      shuugi_scores.append(scores_post_penalties[index] + ((final_shuugi[index] - settings.end_shuugi) * settings.score_per_shuugi))
     for index in range(shuugi_scores.size()):
       scores.append(shuugi_scores[index])
   else:
