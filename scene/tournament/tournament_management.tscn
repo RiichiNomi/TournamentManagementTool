@@ -571,24 +571,28 @@ text = "Points"
 layout_mode = 2
 text = "25000"
 placeholder_text = "25000"
+select_all_on_focus = true
 script = ExtResource("5_g344r")
 
 [node name="Two" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PointsMargin/Points"]
 layout_mode = 2
 text = "25000"
 placeholder_text = "25000"
+select_all_on_focus = true
 script = ExtResource("5_g344r")
 
 [node name="Three" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PointsMargin/Points"]
 layout_mode = 2
 text = "25000"
 placeholder_text = "25000"
+select_all_on_focus = true
 script = ExtResource("5_g344r")
 
 [node name="Four" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PointsMargin/Points"]
 layout_mode = 2
 text = "25000"
 placeholder_text = "25000"
+select_all_on_focus = true
 script = ExtResource("5_g344r")
 
 [node name="ShuugiMargin" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer"]
@@ -608,24 +612,28 @@ text = "Shuugi"
 layout_mode = 2
 text = "10"
 placeholder_text = "10"
+select_all_on_focus = true
 script = ExtResource("5_g344r")
 
 [node name="Two" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/ShuugiMargin/Shuugi"]
 layout_mode = 2
 text = "10"
 placeholder_text = "10"
+select_all_on_focus = true
 script = ExtResource("5_g344r")
 
 [node name="Three" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/ShuugiMargin/Shuugi"]
 layout_mode = 2
 text = "10"
 placeholder_text = "10"
+select_all_on_focus = true
 script = ExtResource("5_g344r")
 
 [node name="Four" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/ShuugiMargin/Shuugi"]
 layout_mode = 2
 text = "10"
 placeholder_text = "10"
+select_all_on_focus = true
 script = ExtResource("5_g344r")
 
 [node name="PenaltyMargin" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer"]
@@ -645,24 +653,28 @@ text = "Penalty"
 layout_mode = 2
 text = "0"
 placeholder_text = "0"
+select_all_on_focus = true
 script = ExtResource("5_g344r")
 
 [node name="Two" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PenaltyMargin/Penalty"]
 layout_mode = 2
 text = "0"
 placeholder_text = "0"
+select_all_on_focus = true
 script = ExtResource("5_g344r")
 
 [node name="Three" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PenaltyMargin/Penalty"]
 layout_mode = 2
 text = "0"
 placeholder_text = "0"
+select_all_on_focus = true
 script = ExtResource("5_g344r")
 
 [node name="Four" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer/PenaltyMargin/Penalty"]
 layout_mode = 2
 text = "0"
 placeholder_text = "0"
+select_all_on_focus = true
 script = ExtResource("5_g344r")
 
 [node name="ScoreMargin" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/Scorer"]

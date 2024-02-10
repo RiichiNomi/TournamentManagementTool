@@ -150,7 +150,7 @@ func on_score_change() -> void:
 	var scores = export().score_table(data_store.tournament.settings)
 
 	for i in range(new_table.player_ids.size()):
-		score_column.set_value(i, scores[new_table.player_ids[i]])
+		score_column.set_score_value(i, scores[new_table.player_ids[i]])
 	
 	var short_points = missing_points()
 	var short_shuugi = missing_shuugi()
@@ -163,7 +163,7 @@ func on_score_change() -> void:
 		missing_points_label.modulate = Color(1, 1, 1, 1)
 	
 	if data_store.tournament.settings.shuugi:
-		if short_shuugi > 0:
+		if short_shuugi != 0:
 			missing_shuugi_label.text = "%d" % [short_shuugi]
 			missing_shuugi_label.modulate = Color(1, 0, 0, 1)
 		else:

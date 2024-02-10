@@ -31,6 +31,9 @@ func set_value(index, value):
 			four.text = str(value)
 			four.placeholder_text = str(value)
 
+func set_score_value(index, value):
+	set_value(index, "%.1f" % [value] if value >= 0 else "(%.1f)" % [abs(value)])
+
 func get_value(index):
 	match index:
 		0:

@@ -43,6 +43,7 @@ func render_players() -> void:
 	var scores = data_store.get_scores()
 	for player in data_store.tournament.registered_players:
 		var row = create_item()
+		var player_score = scores.get(player.id, 0)
 
 		row.set_cell_mode(0, TreeItem.CELL_MODE_STRING)
 		row.set_cell_mode(1, TreeItem.CELL_MODE_STRING)
@@ -52,7 +53,7 @@ func render_players() -> void:
 		row.set_text(0, str(player.id))
 		row.set_text(1, player.name)
 		row.set_text(2, player.affiliation)
-		row.set_text(3, "%.1f" % [scores.get(player.id, 0)])
+		row.set_text(3, "%.1f" % [player_score] if player_score >= 0 else "(%.1f)" % [abs(player_score)])
 
 		row.set_editable(0, false)
 		row.set_editable(1, false)
