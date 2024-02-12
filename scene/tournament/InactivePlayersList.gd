@@ -77,9 +77,11 @@ func render_players() -> void:
 		row.set_text(2, player.affiliation)
 		row.set_text(3, "%.1f" % [scores.get(player.id, 0)])
 
+		var editable = select_mode == SELECT_SINGLE
+
 		row.set_editable(0, false)
-		row.set_editable(1, false)
-		row.set_editable(2, false)
+		row.set_editable(1, editable)
+		row.set_editable(2, editable)
 		row.set_editable(3, false)
 
 func export() -> Array[Player]:
