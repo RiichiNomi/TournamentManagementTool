@@ -75,7 +75,7 @@ func render_players() -> void:
 		row.set_text(0, str(player.id))
 		row.set_text(1, player.name)
 		row.set_text(2, player.affiliation)
-		row.set_text(3, "%.1f" % [scores.get(player.id, 0)])
+		row.set_text(3, data_store.score_format(scores.get(player.id, 0)) % [abs(scores.get(player.id, 0))])
 
 		var editable = select_mode == SELECT_SINGLE
 

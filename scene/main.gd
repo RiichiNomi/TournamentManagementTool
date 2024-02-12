@@ -18,6 +18,7 @@ func _ready():
 	file_dialog.set_filters(PackedStringArray(["*.tmnt ; Tournament File"]))
 	file_dialog.file_selected.connect(_load_file)
 
+
 func _configure_tournament():
 	get_tree().change_scene_to_packed(TournamentSettingsScene)
 

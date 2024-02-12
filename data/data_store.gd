@@ -154,3 +154,22 @@ func delete_cut(index : int) -> void:
 
 	standings_updated.emit()
 	players_updated.emit()
+
+func score_format(score) -> String:
+	var has_non_integer = not _is_int(tournament.settings.score_per_thousand_points) or (
+		tournament.settings.shuugi and not _is_int(tournament.settings.score_per_shuugi)
+	)
+
+	if not has_non_integer:
+		if score >= 0:
+			return "%.1f"
+		else:
+			return "(%.1f)"
+	else:
+		if score >= 0:
+			return "%.2f"
+		else:
+			return "(%.2f)"
+
+func _is_int(val) -> bool:
+	return is_equal_approx(abs(val - int(val)), 0)

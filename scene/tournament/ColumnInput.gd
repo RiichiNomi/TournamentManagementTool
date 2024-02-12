@@ -1,6 +1,8 @@
 extends VBoxContainer
 class_name ColumnInput
 
+@onready var data_store = get_node("/root/DataStore")
+
 @onready var one : NumericLineEdit = $One
 @onready var two : NumericLineEdit = $Two
 @onready var three : NumericLineEdit = $Three
@@ -32,7 +34,7 @@ func set_value(index, value):
 			four.placeholder_text = str(value)
 
 func set_score_value(index, value):
-	set_value(index, "%.1f" % [value] if value >= 0 else "(%.1f)" % [abs(value)])
+	set_value(index, data_store.score_format(value) % [abs(value)])
 
 func get_value(index):
 	match index:

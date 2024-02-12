@@ -108,7 +108,7 @@ size_flags_vertical = 3
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer/MainContainer"]
 layout_mode = 2
-current_tab = 4
+current_tab = 3
 script = ExtResource("1_xpmcv")
 
 [node name="Standings" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
@@ -1032,7 +1032,6 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="PlayerManagementContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
@@ -1125,6 +1124,7 @@ layout_mode = 2
 text = "Edit Players"
 
 [node name="TournamentManagementContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10

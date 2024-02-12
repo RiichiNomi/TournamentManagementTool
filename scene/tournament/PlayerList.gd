@@ -53,7 +53,7 @@ func render_players() -> void:
 		row.set_text(0, str(player.id))
 		row.set_text(1, player.name)
 		row.set_text(2, player.affiliation)
-		row.set_text(3, "%.1f" % [player_score] if player_score >= 0 else "(%.1f)" % [abs(player_score)])
+		row.set_text(3, data_store.score_format(player_score) % [abs(player_score)])
 
 		row.set_editable(0, false)
 		row.set_editable(1, false)

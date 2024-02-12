@@ -147,10 +147,10 @@ func missing_shuugi() -> int:
 	return shuugi
 
 func on_score_change() -> void:
-	var scores = export().score_table(data_store.tournament.settings)
+	var scores = export().score_table_arr(data_store.tournament.settings)
 
 	for i in range(new_table.player_ids.size()):
-		score_column.set_score_value(i, scores[new_table.player_ids[i]])
+		score_column.set_score_value(i, scores[i])
 	
 	var short_points = missing_points()
 	var short_shuugi = missing_shuugi()

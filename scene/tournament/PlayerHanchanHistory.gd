@@ -80,7 +80,7 @@ func render() -> void:
 			if table.is_complete(data_store.tournament.settings):
 				player_row.set_text(2, str(table.final_points[index]))
 				var player_score = table_scores[index]
-				var score_string = "%.1f" % [player_score] if player_score >= 0 else "(%.1f)" % [abs(player_score)]
+				var score_string = data_store.score_format(player_score) % [abs(player_score)]
 				if shuugi:
 					player_row.set_text(3, str(table.final_shuugi[index]))
 					player_row.set_text(4, score_string)
