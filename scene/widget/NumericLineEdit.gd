@@ -8,7 +8,7 @@ func _ready():
     text_changed.connect(_on_text_changed)
 
 func _on_text_changed(new_text):
-    if not new_text.is_valid_float() and new_text != "":
+    if not new_text.is_valid_float() and new_text != "-" and new_text != "":
         text = last_text
         set_caret_column(text.length())
     else:
