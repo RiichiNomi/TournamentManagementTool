@@ -57,10 +57,10 @@ saves the most recent edits to ensure data integrity as much as possible.
 
 ## Roadmap for v1.0 Release
 * Implement the progressive swiss pairing system.
-* Allow sorting of players by name or current score in addition to ID.
 * Allow players to be deleted on the tournament creation screen.
 * Allow deletion of erroneously created players, rounds, or tables in the main
   tournament management interface
+* Add integration with Google Sheets for importing/exporting tournament data.
 
 ## Contributing
 It should be possible to clone this repository and directly import it into Godot
