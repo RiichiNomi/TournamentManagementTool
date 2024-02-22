@@ -10,6 +10,7 @@ It should be possible to create tournaments with any combination of typical
 scoring features.
 
 While a tournament is in-progress, it should be possible to:
+
 * Input scores for tables that have finished playing and automatically calculate
   cumulative player scores and resultant rankings.
   * Score input should support verifying that the total score of all players
@@ -41,6 +42,7 @@ This tool will use Godot's native tools to generate save files, which will allow
 the tournament organizer to load a tournament's state from a save file for
 convenience. The software should have an auto-save feature that automatically
 saves the most recent edits to ensure data integrity as much as possible.
+
 * As a future feature, we intend to allow the software to interface with Google
   Sheets using an organizer-supplied API key.
   * This can allow players to view the current standings and the generated
