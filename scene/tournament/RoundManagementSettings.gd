@@ -46,10 +46,11 @@ func render():
 		var table_size = 4 if settings.game_type == TournamentSettings.GameType.YONMA else 3
 
 		swiss_blocks.clear()
-		var blocks = 0
+		var blocks = 1
+		swiss_blocks.add_item(str(blocks))
 		while blocks < data_store.tournament.registered_players.size() / table_size:
-			swiss_blocks.add_item(str(blocks))
 			blocks *= 2
+			swiss_blocks.add_item(str(blocks))
 	else:
 		swiss_blocks_container.visible = false
 
