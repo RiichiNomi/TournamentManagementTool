@@ -55,8 +55,14 @@ saves the most recent edits to ensure data integrity as much as possible.
   * For convenience, the software should generate a QR code linking to the
     public spreadsheet in a separate window that can then be displayed publicly.
 
+## Caveats
+* The progressive swiss pairing system only attempts to resolve duplicate
+  pairings within a single swiss block. In tournaments where the number of
+  hanchan played is large relative to the size of the block, it is possible that 
+  no suitable pairing can be found. In those cases the we leave initial pairings
+  in place.
+
 ## Roadmap for v1.0 Release
-* Implement the progressive swiss pairing system.
 * Allow players to be deleted on the tournament creation screen.
 * Allow deletion of erroneously created players, rounds, or tables in the main
   tournament management interface
