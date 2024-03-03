@@ -36,7 +36,7 @@ func start_timer(time_sec : float):
 func secs_to_string(total_secs : float) -> String:
 	var secs_int = floori(total_secs)
 	var hours = secs_int / 3600
-	var mins = secs_int / 60
+	var mins = (secs_int - hours * 3600) / 60
 	var secs = secs_int % 60
 	return "%02d:%02d:%02d" % [hours, mins, secs]
 
