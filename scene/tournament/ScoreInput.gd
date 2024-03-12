@@ -104,6 +104,8 @@ func initialize(table : Table) -> void:
 		else:
 			penalty_column.set_value(i, 0)
 	
+	points_column.sim_yonma_scores()
+	
 	on_score_change()
 
 func export() -> Table:
