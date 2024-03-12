@@ -58,8 +58,6 @@ func _reset_ui():
 	create_pairings_button.visible = true
 
 func _create_random_pairings(pairing_settings : RoundManagementSettings.RoundPairingSettings):
-	var tables = []
-
 	var player_objects = data_store.tournament.registered_players.duplicate()
 	var players = []
 
@@ -74,7 +72,6 @@ func _create_random_pairings(pairing_settings : RoundManagementSettings.RoundPai
 		var subs_needed = table_size - (players.size() % table_size)
 		for i in range(subs_needed):
 			players.append(0)
-		players.shuffle()
 	else:
 		var byes_num = players.size() % table_size
 		players.shuffle()
@@ -82,65 +79,8 @@ func _create_random_pairings(pairing_settings : RoundManagementSettings.RoundPai
 		byes.append_array(players.slice(players.size() - byes_num))
 
 		players.resize(players.size() - byes_num)
-	
-	if pairing_settings.avoid_duplicates:
-		var prior_pairings : Dictionary = _prior_pairings()
-		
-		# We don't actually guarantee that there aren't duplicates, but for events where the
-		# number of rounds is small relative to the number of players this is good enough
-		while players.size() > 0:
-			var next_player = players.pop_front()
-			var next_players = []
-			next_players.append(next_player)
-			var has_played = []
-			if prior_pairings.has(next_player):
-				has_played.append_array(prior_pairings[next_player])
 
-			var index = 0
-			while index < players.size():
-				if not has_played.has(players[index]):
-					next_players.append(players[index])
-					if prior_pairings.has(players[index]):
-						has_played.append_array(prior_pairings[players[index]])
-					players.remove_at(index)
-					index -= 1
-				if next_players.size() == table_size:
-					break
-				index += 1
-			
-			while next_players.size() < table_size:
-				next_players.append(players.pop_front())
-			
-			var next_table = Table.new()
-
-			next_table.player_ids.append_array(next_players)
-			
-			if pairing_settings.assign_seat_winds:
-				next_table.player_seats.append(Table.Wind.EAST)
-				next_table.player_seats.append(Table.Wind.SOUTH)
-				next_table.player_seats.append(Table.Wind.WEST)
-				if table_size == 4:
-					next_table.player_seats.append(Table.Wind.NORTH)
-			
-			tables.append(next_table)
-	else:
-		var index = 0
-		while index < players.size():
-			var next_table = Table.new()
-			next_table.player_ids.append(players[index])
-			next_table.player_ids.append(players[index + 1])
-			next_table.player_ids.append(players[index + 2])
-			if table_size == 4:
-				next_table.player_ids.append(players[index + 3])
-			
-			if pairing_settings.assign_seat_winds:
-				next_table.player_seats.append(Table.Wind.EAST)
-				next_table.player_seats.append(Table.Wind.SOUTH)
-				next_table.player_seats.append(Table.Wind.WEST)
-				if table_size == 4:
-					next_table.player_seats.append(Table.Wind.NORTH)
-			tables.append(next_table)
-			index += table_size
+	var tables = _pairings_to_tables(pairing_settings, _create_pairings_for_block(pairing_settings, players))
 
 	pairings_tree.render(tables, byes)
 	
@@ -177,94 +117,96 @@ func _create_swiss_pairings(pairing_settings : RoundManagementSettings.RoundPair
 		tables_per_block += 1
 		larger_blocks_left = tables_num % pairing_settings.swiss_blocks
 	
-	var swiss_tables = []
+	var pairings = []
 	
 	var start_index = 0
 	for block in pairing_settings.swiss_blocks:
 		var block_players = tables_per_block * table_size
 
-		var block_tables = []
-
-		for table_index in range(tables_per_block):
-			var table_players = []
-			table_players.append(players[start_index + table_index])
-			table_players.append(players[start_index + table_index + (tables_per_block)])
-			table_players.append(players[start_index + table_index + (tables_per_block * 2)])
-
-			if table_size == 4:
-				table_players.append(players[start_index + table_index + (tables_per_block * 3)])
-			
-			block_tables.append(table_players)
-
-		# Only try to resolve duplicate pairings within a single swiss block
-		if pairing_settings.avoid_duplicates:
-			var prior_pairings : Dictionary = _prior_pairings()
-
-			for table_index in range(block_tables.size()):
-				var has_played = []
-				for player_index in range(block_tables[table_index].size()):
-					var player_id = block_tables[table_index][player_index]
-
-					if has_played.has(block_tables[table_index][player_index]):
-						for offset in range(1, max(table_index, block_tables.size() - table_index)):
-							if table_index + offset < block_tables.size() and _check_and_swap(
-									block_tables[table_index],
-									block_tables[table_index + offset],
-									player_index,
-									prior_pairings):
-								break
-							if table_index - offset >= 0 and _check_and_swap(
-									block_tables[table_index],
-									block_tables[table_index - offset],
-									player_index,
-									prior_pairings):
-								break
-					elif prior_pairings.has(player_id):
-						has_played.append_array(prior_pairings[player_id])
+		var block_tables = _create_pairings_for_block(
+				pairing_settings, players.slice(start_index, start_index + block_players))
 
 		start_index += block_players
 
-		swiss_tables.append_array(block_tables)
+		pairings.append_array(block_tables)
 
 		if larger_blocks_left > 0:
 			larger_blocks_left -= 1
 			if larger_blocks_left == 0:
 				tables_per_block -= 1
 	
+	var tables = _pairings_to_tables(pairing_settings, pairings)
+
+	pairings_tree.render(tables, byes)
+
+func _create_pairings_for_block(pairing_settings, players):
+	var table_size = 4 if data_store.tournament.settings.game_type == TournamentSettings.GameType.YONMA else 3
+
 	var tables = []
 
-	for table in swiss_tables:
+	players.shuffle()
+
+	if pairing_settings.avoid_duplicates:
+		var prior_pairings : Dictionary = _prior_pairings()
+		
+		# We don't actually guarantee that there aren't duplicates, but for events where the
+		# number of rounds is small relative to the number of players this is good enough
+		while players.size() > 0:
+			var next_player = players.pop_front()
+			var next_players = []
+			next_players.append(next_player)
+			var has_played = []
+			if prior_pairings.has(next_player):
+				has_played.append_array(prior_pairings[next_player])
+
+			var index = 0
+			while index < players.size():
+				if not has_played.has(players[index]):
+					next_players.append(players[index])
+					if prior_pairings.has(players[index]):
+						has_played.append_array(prior_pairings[players[index]])
+					players.remove_at(index)
+					index -= 1
+				if next_players.size() == table_size:
+					break
+				index += 1
+			
+			while next_players.size() < table_size:
+				next_players.append(players.pop_front())
+			tables.append(next_players)
+	else:
+		var index = 0
+		while index < players.size():
+			var next_players = []
+			next_players.append(players[index])
+			next_players.append(players[index + 1])
+			next_players.append(players[index + 2])
+			if table_size == 4:
+				next_players.append(players[index + 3])
+			tables.append(next_players)
+			index += table_size
+	
+	return tables
+
+func _pairings_to_tables(pairing_settings, pairings):
+	var table_size = 4 if data_store.tournament.settings.game_type == TournamentSettings.GameType.YONMA else 3
+
+	var tables = []
+	for pairing in pairings:
 		var next_table = Table.new()
 
-		if pairing_settings.assign_seat_winds:
-			table.shuffle()
-
-		next_table.player_ids.append_array(table)
+		next_table.player_ids.append_array(pairing)
+		
 		if pairing_settings.assign_seat_winds:
 			next_table.player_seats.append(Table.Wind.EAST)
 			next_table.player_seats.append(Table.Wind.SOUTH)
 			next_table.player_seats.append(Table.Wind.WEST)
 			if table_size == 4:
 				next_table.player_seats.append(Table.Wind.NORTH)
+		
 		tables.append(next_table)
-
-	pairings_tree.render(tables, byes)
-
-func _check_and_swap(table_one, table_two, swap_index, prior_pairings):
-	var table_one_played = []
-	var table_two_played = []
-
-	for player_index in range(swap_index - 1):
-		table_one_played.append_array(prior_pairings[table_one[player_index]])
-		table_two_played.append_array(prior_pairings[table_two[player_index]])
 	
-	if not table_one_played.has(table_two[swap_index]) and not table_two_played.has(table_one[swap_index]):
-		var temp = table_one[swap_index]
-		table_one[swap_index] = table_two[swap_index]
-		table_two[swap_index] = temp
-		return true
-
-	return false
+	return tables
 
 func _prior_pairings():
 	var prior_pairings : Dictionary = {}
