@@ -172,8 +172,10 @@ func _create_swiss_pairings(pairing_settings : RoundManagementSettings.RoundPair
 	var tables_num = players.size() / table_size
 
 	var tables_per_block = tables_num / pairing_settings.swiss_blocks
-	if players.size() % pairing_settings.swiss_blocks != 0:
+	var larger_blocks_left = 0
+	if tables_num % pairing_settings.swiss_blocks != 0:
 		tables_per_block += 1
+		larger_blocks_left = tables_num % pairing_settings.swiss_blocks
 	
 	var swiss_tables = []
 	
@@ -223,6 +225,11 @@ func _create_swiss_pairings(pairing_settings : RoundManagementSettings.RoundPair
 		start_index += block_players
 
 		swiss_tables.append_array(block_tables)
+
+		if larger_blocks_left > 0:
+			larger_blocks_left -= 1
+			if larger_blocks_left == 0:
+				tables_per_block -= 1
 	
 	var tables = []
 
