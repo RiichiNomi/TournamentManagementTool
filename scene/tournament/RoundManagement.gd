@@ -160,6 +160,7 @@ func _create_pairings_for_block(pairing_settings, players):
 				has_played.append_array(prior_pairings[next_player])
 
 			var index = 0
+			# TODO: change the way this array is getting modified?
 			while index < players.size():
 				if not has_played.has(players[index]):
 					next_players.append(players[index])
@@ -217,7 +218,6 @@ func _prior_pairings():
 			
 			for opponent in table.player_ids:
 				if (opponent != player_id
-						and not prior_pairings[player_id].has(opponent)
-						and not prior_pairings.has(opponent)):
+						and not prior_pairings[player_id].has(opponent)):
 					prior_pairings[player_id].append(opponent)
 	return prior_pairings
