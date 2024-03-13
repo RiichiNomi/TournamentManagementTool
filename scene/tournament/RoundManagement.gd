@@ -7,6 +7,10 @@ class_name RoundManagement
 @onready var pairings_tree : PairingsList = $PairingsContainer/PairingsListContainer/PairingsList
 @onready var players_pane : VBoxContainer = $ActivePlayersContainer
 
+@onready var duplicates_pane : VBoxContainer = $ControlsContainer/ManageDuplicates
+@onready var duplicates_label : RichTextLabel = $ControlsContainer/ManageDuplicates/MarginContainer/Label
+@onready var reshuffle_button : Button = $ControlsContainer/ManageDuplicates/Button
+
 @onready var confirm_pane : HBoxContainer = $ControlsContainer/ConfirmRound
 @onready var start_round_button : Button = $ControlsContainer/ConfirmRound/StartRoundButton
 @onready var cancel_button : Button = $ControlsContainer/ConfirmRound/CancelRoundButton
@@ -14,13 +18,30 @@ class_name RoundManagement
 @onready var settings_pane : RoundManagementSettings = $ControlsContainer/Settings
 @onready var create_pairings_button : Button = $ControlsContainer/CreatePairingsButton
 
+var duplicate_message_template : String = "There are [color=red]%d[/color] tables with duplicate pairings."
+
 func _ready():
 	create_pairings_button.pressed.connect(_on_create_pairings)
+
+	reshuffle_button.pressed.connect(_on_reshuffle)
 
 	cancel_button.pressed.connect(_on_cancel)
 	start_round_button.pressed.connect(_on_accept_pairing)
 
 func _on_create_pairings() -> void:
+	_create_pairings()
+	
+	pairings_pane.visible = true
+	players_pane.visible = false
+
+	settings_pane.visible = false
+	confirm_pane.visible = true
+	create_pairings_button.visible = false
+
+func _on_reshuffle():
+	_create_pairings()
+
+func _create_pairings():
 	var pairing_settings : RoundManagementSettings.RoundPairingSettings = settings_pane.get_settings()
 
 	randomize()
@@ -29,13 +50,6 @@ func _on_create_pairings() -> void:
 		_create_random_pairings(pairing_settings)
 	elif data_store.tournament.settings.pairing_system == TournamentSettings.PairingSystem.PROGRESSIVE_SWISS:
 		_create_swiss_pairings(pairing_settings)
-	
-	pairings_pane.visible = true
-	players_pane.visible = false
-
-	settings_pane.visible = false
-	confirm_pane.visible = true
-	create_pairings_button.visible = false
 
 func _on_cancel():
 	_reset_ui()
@@ -80,7 +94,21 @@ func _create_random_pairings(pairing_settings : RoundManagementSettings.RoundPai
 
 		players.resize(players.size() - byes_num)
 
-	var tables = _pairings_to_tables(pairing_settings, _create_pairings_for_block(pairing_settings, players))
+	var pairings = _create_pairings_for_block(pairing_settings, players)
+	
+	if pairing_settings.avoid_duplicates:
+		var prior_pairings : Dictionary = _prior_pairings()
+		var duplicate_count = 0
+		for pairing in pairings:
+			if _pairing_has_duplicate(pairing, prior_pairings):
+				duplicate_count += 1
+		if duplicate_count > 0:
+			duplicates_label.text = duplicate_message_template % duplicate_count
+			duplicates_pane.visible = true
+		else:
+			duplicates_pane.visible = false
+
+	var tables = _pairings_to_tables(pairing_settings, pairings)
 
 	pairings_tree.render(tables, byes)
 	
@@ -135,6 +163,18 @@ func _create_swiss_pairings(pairing_settings : RoundManagementSettings.RoundPair
 			if larger_blocks_left == 0:
 				tables_per_block -= 1
 	
+	if pairing_settings.avoid_duplicates:
+		var prior_pairings : Dictionary = _prior_pairings()
+		var duplicate_count = 0
+		for pairing in pairings:
+			if _pairing_has_duplicate(pairing, prior_pairings):
+				duplicate_count += 1
+		if duplicate_count > 0:
+			duplicates_label.text = duplicate_message_template % duplicate_count
+			duplicates_pane.visible = true
+		else:
+			duplicates_pane.visible = false
+
 	var tables = _pairings_to_tables(pairing_settings, pairings)
 
 	pairings_tree.render(tables, byes)
@@ -142,7 +182,7 @@ func _create_swiss_pairings(pairing_settings : RoundManagementSettings.RoundPair
 func _create_pairings_for_block(pairing_settings, players):
 	var table_size = 4 if data_store.tournament.settings.game_type == TournamentSettings.GameType.YONMA else 3
 
-	var tables = []
+	var pairings = []
 
 	players.shuffle()
 
@@ -174,7 +214,7 @@ func _create_pairings_for_block(pairing_settings, players):
 			
 			while next_players.size() < table_size:
 				next_players.append(players.pop_front())
-			tables.append(next_players)
+			pairings.append(next_players)
 	else:
 		var index = 0
 		while index < players.size():
@@ -184,10 +224,10 @@ func _create_pairings_for_block(pairing_settings, players):
 			next_players.append(players[index + 2])
 			if table_size == 4:
 				next_players.append(players[index + 3])
-			tables.append(next_players)
+			pairings.append(next_players)
 			index += table_size
 	
-	return tables
+	return pairings
 
 func _pairings_to_tables(pairing_settings, pairings):
 	var table_size = 4 if data_store.tournament.settings.game_type == TournamentSettings.GameType.YONMA else 3
@@ -208,6 +248,15 @@ func _pairings_to_tables(pairing_settings, pairings):
 		tables.append(next_table)
 	
 	return tables
+
+func _pairing_has_duplicate(pairing, prior_pairings):
+	var seen = []
+	for player in pairing:
+		if seen.has(player):
+			return true
+		if prior_pairings.has(player):
+			seen.append_array(prior_pairings[player])
+	return false
 
 func _prior_pairings():
 	var prior_pairings : Dictionary = {}
