@@ -67,6 +67,8 @@ func _reset_ui():
 	pairings_pane.visible = false
 	players_pane.visible = true
 
+	duplicates_pane.visible = false
+
 	settings_pane.visible = true
 	confirm_pane.visible = false
 	create_pairings_button.visible = true
