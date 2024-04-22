@@ -108,7 +108,7 @@ size_flags_vertical = 3
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer/MainContainer"]
 layout_mode = 2
-current_tab = 3
+current_tab = 2
 script = ExtResource("1_xpmcv")
 
 [node name="Standings" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
@@ -176,6 +176,35 @@ layout_mode = 2
 text = "Hanchan Record"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="RoundSelector" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/HistoryPane"]
+layout_mode = 2
+
+[node name="RoundSelectorLayout" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/HistoryPane/RoundSelector"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/HistoryPane/RoundSelector/RoundSelectorLayout"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Round:"
+vertical_alignment = 1
+
+[node name="Selector" type="OptionButton" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/HistoryPane/RoundSelector/RoundSelectorLayout"]
+layout_mode = 2
+item_count = 2
+selected = 0
+popup/item_0/text = "-"
+popup/item_0/id = 0
+popup/item_1/text = "None"
+popup/item_1/id = 1
+
+[node name="LeftPadding" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/HistoryPane/RoundSelector/RoundSelectorLayout"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RightPadding" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/HistoryPane/RoundSelector/RoundSelectorLayout"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="HanchanHistory" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/HistoryPane"]
 layout_mode = 2
@@ -787,7 +816,6 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="RoundManagementContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
@@ -1013,6 +1041,26 @@ popup/item_4/id = 4
 layout_mode = 2
 text = "Create Pairings"
 
+[node name="ManageDuplicates" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/ManageDuplicates"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="RichTextLabel" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/ManageDuplicates/MarginContainer"]
+custom_minimum_size = Vector2(0, 23)
+layout_mode = 2
+bbcode_enabled = true
+text = "There are [color=red]0[/color] tables with duplicate pairings."
+
+[node name="Button" type="Button" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/ManageDuplicates"]
+layout_mode = 2
+text = "Reshuffle"
+
 [node name="ConfirmRound" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer"]
 visible = false
 layout_mode = 2
@@ -1032,6 +1080,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="PlayerManagementContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10

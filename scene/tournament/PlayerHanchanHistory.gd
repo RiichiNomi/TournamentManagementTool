@@ -5,6 +5,7 @@ class_name PlayerHanchanHistory
 
 var shuugi
 var player_inspected : int = 0
+var round_filter : int = -1
 
 func _ready():
 	shuugi = data_store.tournament.settings.shuugi
@@ -39,6 +40,10 @@ func _ready():
 
 	data_store.standings_updated.connect(render)
 
+func set_filter(round : int) -> void:
+	round_filter = round
+	render()
+
 func inspect_player(player_id : int) -> void:
 	player_inspected = player_id
 	render()
@@ -54,6 +59,9 @@ func render() -> void:
 		hanchan_history = data_store.get_hanchan_history_for_player(player_inspected)
 
 	for table in hanchan_history:
+		if round_filter != -1 and table.round_id != round_filter:
+			continue
+
 		var table_scores = table.score_table_arr(data_store.tournament.settings)
 
 		var table_row : TreeItem = create_item()
