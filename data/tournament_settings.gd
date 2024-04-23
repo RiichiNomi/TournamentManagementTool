@@ -38,6 +38,9 @@ var start_shuugi : float = 10
 var end_shuugi : float = 10
 var score_per_shuugi : float = 0.5
 
+var sheets_api_key : String = ""
+var sheets_id : String = ""
+
 func serialize() -> Dictionary:
     return {
         "game_type": game_type,
