@@ -45,6 +45,12 @@ func is_complete(settings : TournamentSettings) -> bool:
   var shuugi_complete = final_shuugi.size() == player_ids.size()
   return scores_complete and (not settings.shuugi or shuugi_complete)
 
+func player_index(player_id : int) -> int:
+  for index in range(player_ids.size()):
+    if player_ids[index] == player_id:
+      return index
+  return -1
+
 func score_table_arr(settings : TournamentSettings) -> Array:
   var scores = []
   if not is_complete(settings):

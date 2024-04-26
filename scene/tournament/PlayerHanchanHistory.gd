@@ -10,12 +10,28 @@ var round_filter : int = -1
 func _ready():
 	shuugi = data_store.tournament.settings.shuugi
 	if shuugi:
-		columns = 5
+		columns = 6
 
 		set_column_title(0, "Player ID")
 		set_column_title(1, "Player Name")
 		set_column_title(2, "Points")
 		set_column_title(3, "Shuugi")
+		set_column_title(4, "Penalty")
+		set_column_title(5, "Score")
+
+		set_column_custom_minimum_width(0, 0)
+		set_column_custom_minimum_width(1, 200)
+		set_column_custom_minimum_width(2, 0)
+		set_column_custom_minimum_width(3, 0)
+		set_column_custom_minimum_width(4, 0)
+		set_column_custom_minimum_width(5, 0)
+	else:
+		columns = 5
+
+		set_column_title(0, "Player ID")
+		set_column_title(1, "Player Name")
+		set_column_title(2, "Points")
+		set_column_title(3, "Penalty")
 		set_column_title(4, "Score")
 
 		set_column_custom_minimum_width(0, 0)
@@ -23,18 +39,6 @@ func _ready():
 		set_column_custom_minimum_width(2, 0)
 		set_column_custom_minimum_width(3, 0)
 		set_column_custom_minimum_width(4, 0)
-	else:
-		columns = 4
-
-		set_column_title(0, "Player ID")
-		set_column_title(1, "Player Name")
-		set_column_title(2, "Points")
-		set_column_title(3, "Score")
-
-		set_column_custom_minimum_width(0, 0)
-		set_column_custom_minimum_width(1, 200)
-		set_column_custom_minimum_width(2, 0)
-		set_column_custom_minimum_width(3, 0)
 	
 	render()
 
@@ -80,24 +84,29 @@ func render() -> void:
 			player_row.set_cell_mode(1, TreeItem.CELL_MODE_STRING)
 			player_row.set_cell_mode(2, TreeItem.CELL_MODE_STRING)
 			player_row.set_cell_mode(3, TreeItem.CELL_MODE_STRING)
+			player_row.set_cell_mode(4, TreeItem.CELL_MODE_STRING)
 			if shuugi:
-				player_row.set_cell_mode(4, TreeItem.CELL_MODE_STRING)
+				player_row.set_cell_mode(5, TreeItem.CELL_MODE_STRING)
 			
 			player_row.set_text(0, str(player_data.id))
 			player_row.set_text(1, player_data.name)
 			if table.is_complete(data_store.tournament.settings):
 				player_row.set_text(2, str(table.final_points[index]))
 				var player_score = table_scores[index]
+				var penalty = table.penalties[index]
 				var score_string = data_store.score_format(player_score) % [abs(player_score)]
 				if shuugi:
 					player_row.set_text(3, str(table.final_shuugi[index]))
-					player_row.set_text(4, score_string)
+					player_row.set_text(4, str(penalty))
+					player_row.set_text(5, score_string)
 				else:
-					player_row.set_text(3, score_string)
+					player_row.set_text(3, str(penalty))
+					player_row.set_text(4, score_string)
 			
 			player_row.set_editable(0, false)
 			player_row.set_editable(1, false)
 			player_row.set_editable(2, false)
 			player_row.set_editable(3, false)
+			player_row.set_editable(4, false)
 			if shuugi:
-				player_row.set_editable(4, false)
+				player_row.set_editable(5, false)

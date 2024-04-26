@@ -19,6 +19,7 @@ class_name RoundManagement
 @onready var create_pairings_button : Button = $ControlsContainer/CreatePairingsButton
 
 var duplicate_message_template : String = "There are [color=red]%d[/color] tables with duplicate pairings."
+var generating_message_template : String = "Generating pairings (%d attempts)..."
 
 func _ready():
 	create_pairings_button.pressed.connect(_on_create_pairings)
@@ -44,12 +45,56 @@ func _on_reshuffle():
 func _create_pairings():
 	var pairing_settings : RoundManagementSettings.RoundPairingSettings = settings_pane.get_settings()
 
-	randomize()
+	var selected_pairings = []
+	var selected_byes = []
+	var min_duplicates = 100000
 
-	if data_store.tournament.settings.pairing_system == TournamentSettings.PairingSystem.RANDOM:
-		_create_random_pairings(pairing_settings)
-	elif data_store.tournament.settings.pairing_system == TournamentSettings.PairingSystem.PROGRESSIVE_SWISS:
-		_create_swiss_pairings(pairing_settings)
+	var attempts = 0
+
+	while attempts < 1000:
+		randomize()
+
+		var generated_pairings = []
+
+		if data_store.tournament.settings.pairing_system == TournamentSettings.PairingSystem.RANDOM:
+			generated_pairings = _create_random_pairings(pairing_settings)
+		elif data_store.tournament.settings.pairing_system == TournamentSettings.PairingSystem.PROGRESSIVE_SWISS:
+			generated_pairings = _create_swiss_pairings(pairing_settings)
+		
+		var pairings = generated_pairings[0]
+		var byes = generated_pairings[1]
+
+		var duplicate_count = 0
+
+		if pairing_settings.avoid_duplicates:
+			var prior_pairings : Dictionary = _prior_pairings()
+			for pairing in pairings:
+				if _pairing_has_duplicate(pairing, prior_pairings):
+					duplicate_count += 1
+			if duplicate_count < min_duplicates:
+				selected_pairings = pairings
+				selected_byes = byes
+				min_duplicates = duplicate_count
+		else:
+			selected_pairings = pairings
+			selected_byes = byes
+			min_duplicates = 0
+
+		if min_duplicates == 0:
+			break
+		
+		attempts += 1
+
+	if pairing_settings.avoid_duplicates:
+		if min_duplicates > 0:
+			duplicates_label.text = duplicate_message_template % min_duplicates
+			duplicates_pane.visible = true
+		else:
+			duplicates_pane.visible = false
+
+	var tables = _pairings_to_tables(pairing_settings, selected_pairings)
+
+	pairings_tree.render(tables, selected_byes)
 
 func _on_cancel():
 	_reset_ui()
@@ -97,22 +142,8 @@ func _create_random_pairings(pairing_settings : RoundManagementSettings.RoundPai
 		players.resize(players.size() - byes_num)
 
 	var pairings = _create_pairings_for_block(pairing_settings, players)
-	
-	if pairing_settings.avoid_duplicates:
-		var prior_pairings : Dictionary = _prior_pairings()
-		var duplicate_count = 0
-		for pairing in pairings:
-			if _pairing_has_duplicate(pairing, prior_pairings):
-				duplicate_count += 1
-		if duplicate_count > 0:
-			duplicates_label.text = duplicate_message_template % duplicate_count
-			duplicates_pane.visible = true
-		else:
-			duplicates_pane.visible = false
 
-	var tables = _pairings_to_tables(pairing_settings, pairings)
-
-	pairings_tree.render(tables, byes)
+	return [pairings, byes]
 	
 func _create_swiss_pairings(pairing_settings : RoundManagementSettings.RoundPairingSettings):
 	var player_objects = data_store.tournament.registered_players.duplicate()
@@ -164,22 +195,8 @@ func _create_swiss_pairings(pairing_settings : RoundManagementSettings.RoundPair
 			larger_blocks_left -= 1
 			if larger_blocks_left == 0:
 				tables_per_block -= 1
-	
-	if pairing_settings.avoid_duplicates:
-		var prior_pairings : Dictionary = _prior_pairings()
-		var duplicate_count = 0
-		for pairing in pairings:
-			if _pairing_has_duplicate(pairing, prior_pairings):
-				duplicate_count += 1
-		if duplicate_count > 0:
-			duplicates_label.text = duplicate_message_template % duplicate_count
-			duplicates_pane.visible = true
-		else:
-			duplicates_pane.visible = false
 
-	var tables = _pairings_to_tables(pairing_settings, pairings)
-
-	pairings_tree.render(tables, byes)
+	return [pairings, byes]
 
 func _create_pairings_for_block(pairing_settings, players):
 	var table_size = 4 if data_store.tournament.settings.game_type == TournamentSettings.GameType.YONMA else 3

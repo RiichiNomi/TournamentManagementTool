@@ -5,11 +5,13 @@ class_name TournamentManagement
 
 @onready var create_cut_button : Button = $Controls/CutButton
 @onready var manage_cuts_button : Button = $Controls/ManageCutsButton
+@onready var google_sheets_button : Button = $Controls/GoogleSheetsButton
 @onready var save_button : Button = $Controls/SaveButton
 @onready var export_csv_button : Button = $Controls/ExportCsvButton
 
 @onready var cut_manager : CutManagement = $RightPane/CutManagement
 @onready var cut_creator : CutCreation = $RightPane/CutCreation
+@onready var sheets_manager : GoogleSheetsHandler = $RightPane/GoogleSheetsManagement
 @onready var csv_viewer : CsvExport = $RightPane/CsvExport
 
 @onready var file_dialog : FileDialog = $FileDialog
@@ -17,6 +19,7 @@ class_name TournamentManagement
 func _ready():
 	create_cut_button.pressed.connect(_on_create_cut)
 	manage_cuts_button.pressed.connect(_on_manage_cuts)
+	google_sheets_button.pressed.connect(_on_manage_sheets)
 	save_button.pressed.connect(_on_save)
 	export_csv_button.pressed.connect(_on_export_csv)
 
@@ -27,11 +30,14 @@ func _ready():
 
 	csv_viewer.done_exporting.connect(_on_csv_export_exit)
 
+	sheets_manager.hide_sheets_handler.connect(_on_manage_sheets_exit)
+
 	file_dialog.set_filters(PackedStringArray(["*.tmnt ; Tournament File"]))
 	file_dialog.file_selected.connect(_save_file)
 
 func _on_create_cut():
 	cut_manager.visible = false
+	sheets_manager.visible = false
 	cut_creator.visible = true
 
 func _on_create_cut_exit():
@@ -39,6 +45,7 @@ func _on_create_cut_exit():
 
 func _on_manage_cuts():
 	cut_manager.visible = true
+	sheets_manager.visible = false
 	cut_creator.visible = false
 
 func _on_delete_cut(cut_id : int):
@@ -46,6 +53,11 @@ func _on_delete_cut(cut_id : int):
 
 func _on_manage_cuts_exit():
 	cut_manager.visible = false
+
+func _on_manage_sheets():
+	cut_manager.visible = false
+	cut_creator.visible = false
+	sheets_manager.visible = true
 
 func _on_save():
 	file_dialog.popup()
@@ -63,3 +75,6 @@ func _on_export_csv():
 
 func _on_csv_export_exit():
 	csv_viewer.visible = false
+
+func _on_manage_sheets_exit():
+	sheets_manager.visible = false

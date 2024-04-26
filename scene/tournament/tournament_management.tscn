@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bh0j8j56pkgix"]
+[gd_scene load_steps=29 format=3 uid="uid://bh0j8j56pkgix"]
 
 [ext_resource type="Script" path="res://scene/tournament/TournamentStandings.gd" id="1_idape"]
 [ext_resource type="Script" path="res://scene/tournament/CountdownTimer.gd" id="1_p3fnt"]
@@ -23,6 +23,7 @@
 [ext_resource type="Script" path="res://scene/tournament/CutManagement.gd" id="21_d33wi"]
 [ext_resource type="Script" path="res://scene/tournament/CutCreation.gd" id="22_owihm"]
 [ext_resource type="Script" path="res://scene/tournament/CsvExport.gd" id="23_esrj1"]
+[ext_resource type="Script" path="res://scene/tournament/GoogleSheetsHandler.gd" id="23_xebaf"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0ewmx"]
 
@@ -108,7 +109,7 @@ size_flags_vertical = 3
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer/MainContainer"]
 layout_mode = 2
-current_tab = 2
+current_tab = 1
 script = ExtResource("1_xpmcv")
 
 [node name="Standings" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
@@ -156,7 +157,6 @@ scroll_horizontal_enabled = false
 script = ExtResource("3_pfn50")
 
 [node name="HanchanHistoryContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
@@ -816,6 +816,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="RoundManagementContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
@@ -1201,6 +1202,10 @@ text = "Cut to Top Players"
 layout_mode = 2
 text = "Manage Cuts"
 
+[node name="GoogleSheetsButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/Controls"]
+layout_mode = 2
+text = "Import/Export From Google Sheets"
+
 [node name="SaveButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/Controls"]
 layout_mode = 2
 text = "Save Tournament Data to File"
@@ -1353,6 +1358,70 @@ size_flags_horizontal = 3
 text = "Cancel"
 
 [node name="BottomPadding" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/CutCreation"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GoogleSheetsManagement" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("23_xebaf")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement"]
+
+[node name="TopPadding" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Error" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement/Error"]
+layout_mode = 2
+text = "Due to ties, too many players were added to the cut.
+Manually resolve tiebreaks via the Player Management tab before continuing."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement/Error"]
+layout_mode = 2
+text = "I Understand"
+
+[node name="Control" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement"]
+layout_mode = 2
+
+[node name="ScriptIdContainer" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement/Control"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement/Control/ScriptIdContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Spreadsheet ID"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement/Control/ScriptIdContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Buttons" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement/Control"]
+layout_mode = 2
+
+[node name="ExportButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement/Control/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Export Standings and Pairings"
+
+[node name="ImportButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement/Control/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Import Scores"
+
+[node name="DoneButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement/Control"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel"
+
+[node name="BottomPadding" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement"]
 layout_mode = 2
 size_flags_vertical = 3
 

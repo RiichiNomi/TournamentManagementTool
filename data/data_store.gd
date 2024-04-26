@@ -83,6 +83,14 @@ func get_table(round_id : int, table_id : int) -> Table:
 			return table
 	return null
 
+func get_round(round_id : int) -> Array[Table]:
+	var tables : Array[Table] = []
+	for table in tournament.tables:
+		if table.round_id == round_id:
+			tables.append(table)
+	tables.sort_custom(func comp(a, b): return a.table_id < b.table_id)
+	return tables
+
 func get_player(player_id : int) -> Player:
 	if player_id == 0:
 		var sub = Player.new()
