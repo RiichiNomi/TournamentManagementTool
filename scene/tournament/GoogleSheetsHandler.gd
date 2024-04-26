@@ -3,8 +3,7 @@ class_name GoogleSheetsHandler
 
 @onready var data_store : DataStore = get_node("/root/DataStore")
 
-@onready var api_key_field : LineEdit = $Control/ApiKeyContainer/LineEdit
-@onready var spreadsheet_id_field : LineEdit = $Control/SpreadsheetIdContainer/LineEdit
+@onready var script_id_field : LineEdit = $Control/ScriptIdContainer/LineEdit
 
 @onready var export_button : Button = $Control/Buttons/ExportButton
 @onready var import_button : Button = $Control/Buttons/ImportButton
@@ -17,11 +16,22 @@ class_name GoogleSheetsHandler
 @onready var error_block : VBoxContainer = $Error
 @onready var control_block : VBoxContainer = $Control
 
+@onready var request : HTTPRequest = $HTTPRequest
+
+enum RequestStatus { NONE, EXPORT, IMPORT }
+var request_in_flight : RequestStatus = RequestStatus.NONE
+var get_url_format : String = "https://script.google.com/macros/s/%s/exec?tableSize=%d&shuugi=%s"
+var post_url_format : String = "https://script.google.com/macros/s/%s/exec"
+
 signal hide_sheets_handler
 
 func _ready():
-	api_key_field.text = data_store.tournament.settings.sheets_api_key
-	spreadsheet_id_field.text = data_store.tournament.settings.sheets_id
+	error_block.visible = false
+	control_block.visible = true
+
+	script_id_field.text = data_store.tournament.settings.script_id
+
+	script_id_field.text_changed.connect(_on_script_id_changed)
 
 	export_button.pressed.connect(_on_export_pressed)
 	import_button.pressed.connect(_on_import_pressed)
@@ -30,11 +40,62 @@ func _ready():
 
 	error_button.pressed.connect(_on_error_button_clicked)
 
+	request.request_completed.connect(_on_request_completed)
+
 func _on_export_pressed():
-	pass
+	if request_in_flight == RequestStatus.NONE:
+		request_in_flight = RequestStatus.EXPORT
+
+		var round_number = data_store.tournament.next_round - 1
+		var standings = []
+		var tables = []
+		var shuugi = data_store.tournament.settings.shuugi
+
+		var raw_standings = data_store.get_scores()
+		for player_id in raw_standings:
+			var player_data = data_store.get_player(player_id)
+			standings.append([player_id, player_data.name, raw_standings[player_id]])
+		standings.sort_custom(func(a, b): return a[2] > b[2])
+		for i in range(0, len(standings)):
+			standings[i][2] = data_store.score_format(standings[i][2]) % [abs(standings[i][2])]
+			standings[i].push_front(i + 1)
+
+		var raw_tables = data_store.get_round(round_number)
+		for table in raw_tables:
+			var table_data = []
+			for player_id in table.player_ids:
+				table_data.append([player_id, data_store.get_player(player_id).name])
+			tables.append(table_data)
+
+		var body = {
+			"roundNumber": round_number,
+			"standings": standings,
+			"tables": tables,
+			"shuugi": shuugi
+		}
+
+		request.request(post_url_format % [script_id_field.text], [], HTTPClient.METHOD_POST, JSON.stringify(body))
 
 func _on_import_pressed():
-	pass
+	if request_in_flight == RequestStatus.NONE:
+		request_in_flight = RequestStatus.IMPORT
+		var table_size = 4 if data_store.tournament.settings.game_type == TournamentSettings.GameType.YONMA else 3
+		var shuugi = data_store.tournament.settings.shuugi
+		request.request(get_url_format % [script_id_field.text, table_size, shuugi])
+
+func _on_request_completed(_result, response_code, _headers, body):
+	var parser = JSON.new()
+	parser.parse(body.get_string_from_utf8())
+	if request_in_flight == RequestStatus.IMPORT:
+		if response_code == 200:
+				error_block.visible = false
+				control_block.visible = true
+				_handle_import(parser.data)
+		else:
+			_show_message("Error %d: %s" % [response_code, parser.data["error"]["message"]])
+	else:
+		_show_message("Export complete.")
+	request_in_flight = RequestStatus.NONE
 
 func _on_hide_handler():
 	hide_sheets_handler.emit()
@@ -42,3 +103,40 @@ func _on_hide_handler():
 func _on_error_button_clicked():
 	error_block.visible = false
 	control_block.visible = true
+
+func _on_script_id_changed(new_text : String):
+	data_store.tournament.settings.script_id = new_text
+
+func _handle_import(tables):
+	var round_number = tables[0]
+	var table_data = tables.slice(1)
+
+	for table in table_data:
+		var table_obj = data_store.get_table(round_number, table[0])
+
+		for score in table.slice(1):
+			var player_index = table_obj.player_index(score[0])
+			if player_index == -1:
+				_show_message("Error when importing table %d: Player %s in spreadsheet not present in software." % [table[0], score[0]])
+				return
+			else:
+				table_obj.final_points[player_index] = score[1]
+				if data_store.tournament.settings.shuugi:
+					table_obj.final_shuugi[player_index] = score[2]
+					table_obj.penalties[player_index] = score[3]
+				else:
+					table_obj.penalties[player_index] = score[2]
+	
+	_show_message("Scores successfully imported from spreadsheet.")
+	
+	data_store.standings_updated.emit()
+
+func _show_message(error_message):
+	error_label.text = error_message
+	error_block.visible = true
+	control_block.visible = false
+
+func _construct_export_payload():
+	var payload = {}
+	payload["valueInputOption"] = "USER_ENTERED"
+	

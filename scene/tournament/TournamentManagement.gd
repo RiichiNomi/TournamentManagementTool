@@ -5,7 +5,7 @@ class_name TournamentManagement
 
 @onready var create_cut_button : Button = $Controls/CutButton
 @onready var manage_cuts_button : Button = $Controls/ManageCutsButton
-@onready var google_sheets_button : Button = $Controls/Controls/GoogleSheetsButton
+@onready var google_sheets_button : Button = $Controls/GoogleSheetsButton
 @onready var save_button : Button = $Controls/SaveButton
 @onready var export_csv_button : Button = $Controls/ExportCsvButton
 
@@ -30,6 +30,8 @@ func _ready():
 
 	csv_viewer.done_exporting.connect(_on_csv_export_exit)
 
+	sheets_manager.hide_sheets_handler.connect(_on_manage_sheets_exit)
+
 	file_dialog.set_filters(PackedStringArray(["*.tmnt ; Tournament File"]))
 	file_dialog.file_selected.connect(_save_file)
 
@@ -53,7 +55,9 @@ func _on_manage_cuts_exit():
 	cut_manager.visible = false
 
 func _on_manage_sheets():
-	pass
+	cut_manager.visible = false
+	cut_creator.visible = false
+	sheets_manager.visible = true
 
 func _on_save():
 	file_dialog.popup()
@@ -71,3 +75,6 @@ func _on_export_csv():
 
 func _on_csv_export_exit():
 	csv_viewer.visible = false
+
+func _on_manage_sheets_exit():
+	sheets_manager.visible = false

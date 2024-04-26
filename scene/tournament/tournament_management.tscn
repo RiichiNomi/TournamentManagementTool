@@ -1362,15 +1362,19 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="GoogleSheetsManagement" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("23_xebaf")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement"]
 
 [node name="TopPadding" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement"]
 layout_mode = 2
 size_flags_vertical = 3
 
 [node name="Error" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement"]
+visible = false
 layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement/Error"]
@@ -1387,28 +1391,15 @@ text = "I Understand"
 [node name="Control" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement"]
 layout_mode = 2
 
-[node name="ApiKeyContainer" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement/Control"]
+[node name="ScriptIdContainer" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement/Control"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement/Control/ApiKeyContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "API Key"
-
-[node name="LineEdit" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement/Control/ApiKeyContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-secret = true
-
-[node name="SpreadsheetIdContainer" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement/Control"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement/Control/SpreadsheetIdContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement/Control/ScriptIdContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Spreadsheet ID"
 
-[node name="LineEdit" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement/Control/SpreadsheetIdContainer"]
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement/Control/ScriptIdContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
