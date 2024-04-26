@@ -109,7 +109,7 @@ size_flags_vertical = 3
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer/MainContainer"]
 layout_mode = 2
-current_tab = 4
+current_tab = 1
 script = ExtResource("1_xpmcv")
 
 [node name="Standings" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
@@ -157,7 +157,6 @@ scroll_horizontal_enabled = false
 script = ExtResource("3_pfn50")
 
 [node name="HanchanHistoryContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
@@ -1175,6 +1174,7 @@ layout_mode = 2
 text = "Edit Players"
 
 [node name="TournamentManagementContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
