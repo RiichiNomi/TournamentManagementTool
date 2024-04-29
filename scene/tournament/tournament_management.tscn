@@ -1401,7 +1401,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement/Control/ScriptIdContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Spreadsheet ID"
+text = "Google Apps Script ID"
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement/Control/ScriptIdContainer"]
 layout_mode = 2
