@@ -13,7 +13,8 @@ config_version=5
 config/name="Mahjong Tournament Tool"
 run/main_scene="res://scene/main.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://rat.png"
+config/windows_native_icon="res://rat.ico"
 
 [autoload]
 

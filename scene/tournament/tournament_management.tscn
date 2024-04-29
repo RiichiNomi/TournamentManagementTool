@@ -109,7 +109,7 @@ size_flags_vertical = 3
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer/MainContainer"]
 layout_mode = 2
-current_tab = 1
+current_tab = 2
 script = ExtResource("1_xpmcv")
 
 [node name="Standings" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
@@ -157,6 +157,7 @@ scroll_horizontal_enabled = false
 script = ExtResource("3_pfn50")
 
 [node name="HanchanHistoryContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
@@ -816,7 +817,6 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="RoundManagementContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
@@ -933,31 +933,6 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 button_pressed = true
 
-[node name="RoundTime" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings"]
-layout_mode = 2
-
-[node name="Left" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/RoundTime"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_bottom = 5
-
-[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/RoundTime/Left"]
-layout_mode = 2
-text = "Round Time (Minutes)"
-
-[node name="Right" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/RoundTime"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_bottom = 5
-
-[node name="NumericLineEdit" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/RoundTime/Right"]
-layout_mode = 2
-text = "0"
-placeholder_text = "0"
-script = ExtResource("5_g344r")
-
 [node name="AssignWinds" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings"]
 layout_mode = 2
 
@@ -1038,9 +1013,38 @@ popup/item_3/id = 3
 popup/item_4/text = "16"
 popup/item_4/id = 4
 
-[node name="CreatePairingsButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer"]
+[node name="CreatePairingsButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings"]
 layout_mode = 2
 text = "Create Pairings"
+
+[node name="RoundTime" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings"]
+layout_mode = 2
+
+[node name="Left" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/RoundTime"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/RoundTime/Left"]
+layout_mode = 2
+text = "Round Time (Minutes)"
+
+[node name="Right" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/RoundTime"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_bottom = 5
+
+[node name="NumericLineEdit" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/RoundTime/Right"]
+layout_mode = 2
+text = "0"
+placeholder_text = "0"
+script = ExtResource("5_g344r")
+
+[node name="StartRoundButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings"]
+layout_mode = 2
+text = "Start Round"
 
 [node name="ManageDuplicates" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer"]
 visible = false
@@ -1066,10 +1070,10 @@ text = "Reshuffle"
 visible = false
 layout_mode = 2
 
-[node name="StartRoundButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/ConfirmRound"]
+[node name="ConfirmPairingsButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/ConfirmRound"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Start Round"
+text = "Confirm Pairings"
 
 [node name="CancelRoundButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/ConfirmRound"]
 layout_mode = 2
@@ -1397,7 +1401,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement/Control/ScriptIdContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Spreadsheet ID"
+text = "Google Apps Script ID"
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/TournamentManagementContainer/TournamentManagement/RightPane/GoogleSheetsManagement/Control/ScriptIdContainer"]
 layout_mode = 2

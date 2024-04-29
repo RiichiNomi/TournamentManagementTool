@@ -12,11 +12,12 @@ class_name RoundManagement
 @onready var reshuffle_button : Button = $ControlsContainer/ManageDuplicates/Button
 
 @onready var confirm_pane : HBoxContainer = $ControlsContainer/ConfirmRound
-@onready var start_round_button : Button = $ControlsContainer/ConfirmRound/StartRoundButton
+@onready var confirm_pairings_button : Button = $ControlsContainer/ConfirmRound/ConfirmPairingsButton
 @onready var cancel_button : Button = $ControlsContainer/ConfirmRound/CancelRoundButton
 
 @onready var settings_pane : RoundManagementSettings = $ControlsContainer/Settings
-@onready var create_pairings_button : Button = $ControlsContainer/CreatePairingsButton
+@onready var create_pairings_button : Button = $ControlsContainer/Settings/CreatePairingsButton
+@onready var start_round_button : Button = $ControlsContainer/Settings/StartRoundButton
 
 var duplicate_message_template : String = "There are [color=red]%d[/color] tables with duplicate pairings."
 var generating_message_template : String = "Generating pairings (%d attempts)..."
@@ -27,7 +28,9 @@ func _ready():
 	reshuffle_button.pressed.connect(_on_reshuffle)
 
 	cancel_button.pressed.connect(_on_cancel)
-	start_round_button.pressed.connect(_on_accept_pairing)
+	confirm_pairings_button.pressed.connect(_on_accept_pairing)
+
+	start_round_button.pressed.connect(_on_start_round)
 
 func _on_create_pairings() -> void:
 	_create_pairings()
@@ -100,13 +103,13 @@ func _on_cancel():
 	_reset_ui()
 
 func _on_accept_pairing():
-	var pairing_settings : RoundManagementSettings.RoundPairingSettings = settings_pane.get_settings()
-
 	data_store.add_round(pairings_tree.export_tables())
 
-	data_store.start_round(pairing_settings.time_per_round_minutes * 60)
-
 	_reset_ui()
+
+func _on_start_round():
+	var pairing_settings : RoundManagementSettings.RoundPairingSettings = settings_pane.get_settings()
+	data_store.start_round(pairing_settings.time_per_round_minutes * 60)
 
 func _reset_ui():
 	pairings_pane.visible = false

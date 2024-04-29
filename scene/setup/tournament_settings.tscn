@@ -710,13 +710,9 @@ layout_mode = 2
 placeholder_text = "Paste your CSV here and click Add Player! Player IDs will get automatically assigned!
 
 Example Input:
-Degenerate Chip Addict, Chicago Area Mahjong
 Freed Jyanshi, RNNYC
-Anonymous Unaffiliated Player
-Ichihime, Jantama Jinja
-Stable 8-Dan On Tenhou, OC Mahjong
-Aka Nashi Enjoyer, Seattle Riichi Mahjong
-Melissa, United States"
+Unaffiliated Player
+Ichihime, Jantama Jinja"
 
 [node name="HBoxContainer" type="VBoxContainer" parent="HBoxContainer/PlayersPane"]
 layout_mode = 2
