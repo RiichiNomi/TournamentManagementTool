@@ -52,9 +52,8 @@ func _on_export_pressed():
 		var shuugi = data_store.tournament.settings.shuugi
 
 		var raw_standings = data_store.get_scores()
-		for player_id in raw_standings:
-			var player_data = data_store.get_player(player_id)
-			standings.append([player_id, player_data.name, raw_standings[player_id]])
+		for player_data in data_store.tournament.registered_players:
+			standings.append([player_data.id, player_data.name, raw_standings.get(player_data.id, 0)])
 		standings.sort_custom(func(a, b): return a[2] > b[2])
 		for i in range(0, len(standings)):
 			standings[i][2] = data_store.score_format(standings[i][2]) % [abs(standings[i][2])]
