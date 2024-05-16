@@ -241,14 +241,8 @@ func _create_pairings_for_block(pairing_settings, players):
 		for pairing in pairings:
 			pairing.sort()
 
-		print(pairings)
-		print("==========")
-		
 		_gej(pairings)
 
-		print(pairings)
-		print("----------")
-		
 		for pairing in pairings:
 			pairing.shuffle()
 	else:
@@ -286,10 +280,6 @@ func _gej(pairings):
 		for j in range(table_size):
 			for k in range(1, pairings.size()):
 				swaps.append([i, j, k])
-
-	var best = duplicates
-
-	print("best before swaps: %d" % best)
 		
 	for _attempt in range(30):
 		pairings.sort_custom(func(a, b): return costs[a] > costs[b])
