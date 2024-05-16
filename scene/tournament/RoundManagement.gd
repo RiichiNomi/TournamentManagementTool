@@ -54,7 +54,7 @@ func _create_pairings():
 
 	var attempts = 0
 
-	while attempts < 1000:
+	while attempts < 100:
 		randomize()
 
 		var generated_pairings = []
@@ -237,6 +237,20 @@ func _create_pairings_for_block(pairing_settings, players):
 			while next_players.size() < table_size:
 				next_players.append(players.pop_front())
 			pairings.append(next_players)
+		
+		for pairing in pairings:
+			pairing.sort()
+
+		print(pairings)
+		print("==========")
+		
+		_gej(pairings)
+
+		print(pairings)
+		print("----------")
+		
+		for pairing in pairings:
+			pairing.shuffle()
 	else:
 		var index = 0
 		while index < players.size():
@@ -249,6 +263,73 @@ func _create_pairings_for_block(pairing_settings, players):
 			pairings.append(next_players)
 			index += table_size
 	
+	return pairings
+
+func _gej(pairings):
+	var prior_pairings : Dictionary = _prior_pairings()
+	var costs : Dictionary = {}
+
+	var duplicates = 0
+
+	for pairing in pairings:
+		if not costs.has(pairing):
+			costs[pairing] = _pairing_cost(pairing, prior_pairings)
+		if costs[pairing] > 0:
+			duplicates += 1
+	
+	if duplicates == 0:
+		return pairings
+
+	var swaps = []
+	var table_size = 4 if data_store.tournament.settings.game_type == TournamentSettings.GameType.YONMA else 3
+	for i in range(table_size):
+		for j in range(table_size):
+			for k in range(1, pairings.size()):
+				swaps.append([i, j, k])
+
+	var best = duplicates
+
+	print("best before swaps: %d" % best)
+		
+	for _attempt in range(30):
+		pairings.sort_custom(func(a, b): return costs[a] > costs[b])
+
+		var best_delta = 0
+		var best_swap = []
+
+		for swap in swaps:
+			var prev_cost = _pairing_cost(pairings[0], prior_pairings) + _pairing_cost(pairings[swap[2]], prior_pairings)
+
+			pairings = _apply_swap(pairings, swap)
+
+			var new_cost = _pairing_cost(pairings[0], prior_pairings) + _pairing_cost(pairings[swap[2]], prior_pairings)
+
+			if new_cost < prev_cost and prev_cost - new_cost > best_delta:
+				best_delta = prev_cost - new_cost
+				best_swap = swap
+			
+			pairings = _apply_swap(pairings, swap)
+		
+		if best_swap.is_empty():
+			return
+		pairings = _apply_swap(pairings, best_swap)
+		pairings[0].sort()
+		pairings[best_swap[2]].sort()
+
+		duplicates = 0
+		for pairing in pairings:
+			if not costs.has(pairing):
+				costs[pairing] = _pairing_cost(pairing, prior_pairings)
+			if costs[pairing] > 0:
+				duplicates += 1
+		if duplicates == 0:
+			return
+
+func _apply_swap(pairings, swap):
+	var temp_id = pairings[0][swap[0]]
+	pairings[0][swap[0]] = pairings[swap[2]][swap[1]]
+	pairings[swap[2]][swap[1]] = temp_id
+
 	return pairings
 
 func _pairings_to_tables(pairing_settings, pairings):
@@ -270,6 +351,16 @@ func _pairings_to_tables(pairing_settings, pairings):
 		tables.append(next_table)
 	
 	return tables
+
+func _pairing_cost(pairing, prior_pairings):
+	var seen = {}
+	var cost = 0
+	for player in pairing:
+		if seen.has(player):
+			cost += 1
+		if prior_pairings.has(player):
+			seen.merge(prior_pairings[player])
+	return cost
 
 func _pairing_has_duplicate(pairing, prior_pairings):
 	var seen = {}
