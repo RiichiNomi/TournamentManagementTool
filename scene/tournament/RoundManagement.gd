@@ -217,9 +217,9 @@ func _create_pairings_for_block(pairing_settings, players):
 			var next_player = players.pop_front()
 			var next_players = []
 			next_players.append(next_player)
-			var has_played = []
+			var has_played = {}
 			if prior_pairings.has(next_player):
-				has_played.append_array(prior_pairings[next_player])
+				has_played.merge(prior_pairings[next_player])
 
 			var index = 0
 			# TODO: change the way this array is getting modified?
@@ -227,7 +227,7 @@ func _create_pairings_for_block(pairing_settings, players):
 				if not has_played.has(players[index]):
 					next_players.append(players[index])
 					if prior_pairings.has(players[index]):
-						has_played.append_array(prior_pairings[players[index]])
+						has_played.merge(prior_pairings[players[index]])
 					players.remove_at(index)
 					index -= 1
 				if next_players.size() == table_size:
@@ -272,12 +272,12 @@ func _pairings_to_tables(pairing_settings, pairings):
 	return tables
 
 func _pairing_has_duplicate(pairing, prior_pairings):
-	var seen = []
+	var seen = {}
 	for player in pairing:
 		if seen.has(player):
 			return true
 		if prior_pairings.has(player):
-			seen.append_array(prior_pairings[player])
+			seen.merge(prior_pairings[player])
 	return false
 
 func _prior_pairings():
@@ -285,10 +285,10 @@ func _prior_pairings():
 	for table in data_store.tournament.tables:
 		for player_id in table.player_ids:
 			if not prior_pairings.has(player_id):
-				prior_pairings[player_id] = []
+				prior_pairings[player_id] = {}
 			
 			for opponent in table.player_ids:
 				if (opponent != player_id
 						and not prior_pairings[player_id].has(opponent)):
-					prior_pairings[player_id].append(opponent)
+					prior_pairings[player_id][opponent] = true
 	return prior_pairings
