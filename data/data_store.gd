@@ -36,6 +36,9 @@ func update_table(new_table : Table) -> void:
 
 	updated_table.left_over_kyotaku = new_table.left_over_kyotaku
 
+	recalculate_scores()
+
+func recalculate_scores() -> void:
 	scores = tournament.calculate_scores()
 	standings_updated.emit()
 	players_updated.emit()
