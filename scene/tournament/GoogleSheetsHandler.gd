@@ -110,6 +110,8 @@ func _handle_import(tables):
 	var round_number = tables[0]
 	var table_data = tables.slice(1)
 
+	var table_size = 4 if data_store.tournament.settings.game_type == TournamentSettings.GameType.YONMA else 3
+
 	for table in table_data:
 		var table_obj = data_store.get_table(round_number, table[0])
 
@@ -119,16 +121,28 @@ func _handle_import(tables):
 				_show_message("Error when importing table %d: Player %s in spreadsheet not present in software." % [table[0], score[0]])
 				return
 			else:
+				if table_obj.final_points.size() < table_size:
+					table_obj.final_points.resize(table_size)
+					table_obj.final_points.fill(0)
+
+				if data_store.tournament.settings.shuugi and table_obj.final_shuugi.size() < table_size:
+					table_obj.final_shuugi.resize(table_size)
+					table_obj.final_shuugi.fill(0)
+
+				if table_obj.penalties.size() < table_size:
+					table_obj.penalties.resize(table_size)
+					table_obj.penalties.fill(0)
+
 				table_obj.final_points[player_index] = score[1]
 				if data_store.tournament.settings.shuugi:
 					table_obj.final_shuugi[player_index] = score[2]
 					table_obj.penalties[player_index] = score[3]
 				else:
 					table_obj.penalties[player_index] = score[2]
-	
+				
 	_show_message("Scores successfully imported from spreadsheet.")
 	
-	data_store.standings_updated.emit()
+	data_store.recalculate_scores()
 
 func _show_message(error_message):
 	error_label.text = error_message
