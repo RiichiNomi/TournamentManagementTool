@@ -8,7 +8,7 @@ class_name RoundManagementSettings
 @onready var round_time : NumericLineEdit = $RoundTime/Right/NumericLineEdit
 @onready var assign_winds : CheckBox = $AssignWinds/Right/CheckBox
 @onready var assign_subs : CheckBox = $LeftoverPlayers/Right/CheckBox
-@onready var swiss_blocks : OptionButton = $SwissBlocks/Right/Selector
+@onready var swiss_blocks : NumericLineEdit = $SwissBlocks/Right/NumericLineEdit
 
 @onready var active_tables_container : HBoxContainer = $ActiveTables
 @onready var swiss_blocks_container : HBoxContainer = $SwissBlocks
@@ -40,32 +40,13 @@ func render():
 
 	assign_subs.button_pressed = true
 
-	if settings.pairing_system == TournamentSettings.PairingSystem.PROGRESSIVE_SWISS:
-		swiss_blocks_container.visible = true
-
-		var table_size = 4 if settings.game_type == TournamentSettings.GameType.YONMA else 3
-
-		var table_count = data_store.tournament.registered_players.size() / table_size
-		if data_store.tournament.registered_players.size() % table_size != 0:
-			table_count += 1
-
-		swiss_blocks.clear()
-		var blocks = 1
-		swiss_blocks.add_item(str(blocks))
-		while blocks < table_count:
-			blocks *= 2
-			swiss_blocks.add_item(str(blocks))
-	else:
-		swiss_blocks_container.visible = false
-
 func get_settings() -> RoundPairingSettings:
 	var settings = RoundPairingSettings.new()
 	settings.avoid_duplicates = duplicate_pairings.button_pressed
 	settings.time_per_round_minutes = int(round_time.text)
 	settings.assign_seat_winds = assign_winds.button_pressed
 	settings.assign_subs = assign_subs.button_pressed
-	if swiss_blocks_container.visible:
-		settings.swiss_blocks = pow(2, swiss_blocks.selected)
+	settings.swiss_blocks = swiss_blocks.get_value()
 
 	return settings
 	

@@ -109,7 +109,7 @@ size_flags_vertical = 3
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer/MainContainer"]
 layout_mode = 2
-current_tab = 3
+current_tab = 2
 script = ExtResource("1_xpmcv")
 
 [node name="Standings" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
@@ -817,7 +817,6 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="RoundManagementContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
@@ -992,27 +991,18 @@ theme_override_constants/margin_bottom = 5
 
 [node name="Label" type="Label" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/SwissBlocks/Left"]
 layout_mode = 2
-text = "Swiss Pairing Blocks"
+text = "Pairing Blocks"
 
 [node name="Right" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/SwissBlocks"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_bottom = 5
 
-[node name="Selector" type="OptionButton" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/SwissBlocks/Right"]
+[node name="NumericLineEdit" type="LineEdit" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings/SwissBlocks/Right"]
 layout_mode = 2
-item_count = 5
-selected = 0
-popup/item_0/text = "1"
-popup/item_0/id = 0
-popup/item_1/text = "2"
-popup/item_1/id = 1
-popup/item_2/text = "4"
-popup/item_2/id = 2
-popup/item_3/text = "8"
-popup/item_3/id = 3
-popup/item_4/text = "16"
-popup/item_4/id = 4
+text = "1"
+placeholder_text = "1"
+script = ExtResource("5_g344r")
 
 [node name="CreatePairingsButton" type="Button" parent="VBoxContainer/MainContainer/TabContainer/RoundManagementContainer/RoundManagement/ControlsContainer/Settings"]
 layout_mode = 2
@@ -1086,6 +1076,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="PlayerManagementContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
