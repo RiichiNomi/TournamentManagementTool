@@ -57,12 +57,7 @@ func _create_pairings():
 	while attempts < 100:
 		randomize()
 
-		var generated_pairings = []
-
-		if data_store.tournament.settings.pairing_system == TournamentSettings.PairingSystem.RANDOM:
-			generated_pairings = _create_random_pairings(pairing_settings)
-		elif data_store.tournament.settings.pairing_system == TournamentSettings.PairingSystem.PROGRESSIVE_SWISS:
-			generated_pairings = _create_swiss_pairings(pairing_settings)
+		var generated_pairings = _create_swiss_pairings(pairing_settings)
 		
 		var pairings = generated_pairings[0]
 		var byes = generated_pairings[1]

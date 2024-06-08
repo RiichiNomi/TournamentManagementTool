@@ -91,6 +91,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="PairingSystem" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_emjvx")]
+visible = false
 layout_mode = 2
 
 [node name="TimePerRound" parent="HBoxContainer/SettingsPreview" instance=ExtResource("2_emjvx")]

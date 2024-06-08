@@ -324,6 +324,7 @@ select_all_on_focus = true
 script = ExtResource("3_ng8op")
 
 [node name="PairingTypeContainer" type="HBoxContainer" parent="HBoxContainer/SettingsPane"]
+visible = false
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/SettingsPane/PairingTypeContainer"]
@@ -355,7 +356,7 @@ theme_override_constants/margin_bottom = 5
 [node name="PairingTypeDropdown" type="OptionButton" parent="HBoxContainer/SettingsPane/PairingTypeContainer/HBoxContainer2/MarginContainer"]
 layout_mode = 2
 item_count = 2
-selected = 0
+selected = 1
 popup/item_0/text = "Random"
 popup/item_0/id = 0
 popup/item_1/text = "Progressive Swiss"
