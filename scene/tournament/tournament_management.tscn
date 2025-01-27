@@ -109,7 +109,7 @@ size_flags_vertical = 3
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer/MainContainer"]
 layout_mode = 2
-current_tab = 2
+current_tab = 1
 script = ExtResource("1_xpmcv")
 
 [node name="Standings" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
@@ -157,7 +157,6 @@ scroll_horizontal_enabled = false
 script = ExtResource("3_pfn50")
 
 [node name="HanchanHistoryContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
@@ -249,6 +248,7 @@ layout_mode = 2
 theme_override_constants/margin_left = 10
 
 [node name="HanchanCreation" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("8_mbkqq")
@@ -425,7 +425,6 @@ size_flags_horizontal = 3
 text = "Cancel"
 
 [node name="Settings" type="VBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("8_7kqq6")
@@ -802,6 +801,11 @@ theme_override_constants/margin_top = 20
 [node name="Buttons" type="HBoxContainer" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/ButtonsContainer"]
 layout_mode = 2
 
+[node name="ModifyTable" type="Button" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/ButtonsContainer/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Modify Table"
+
 [node name="Confirm" type="Button" parent="VBoxContainer/MainContainer/TabContainer/HanchanHistoryContainer/HanchanHistory/ControlsPane/SettingsContainer/Settings/ButtonsContainer/Buttons"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -817,6 +821,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="RoundManagementContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10

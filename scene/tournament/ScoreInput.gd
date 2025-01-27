@@ -21,6 +21,7 @@ class_name ScoreInput
 @onready var missing_shuugi_left : MarginContainer = $MissingContainer/Root/Labels/Shuugi
 @onready var missing_shuugi_right : MarginContainer = $MissingContainer/Root/Values/Shuugi
 
+@onready var modify_table_button : Button = $ButtonsContainer/Buttons/ModifyTable
 @onready var submit_table_button : Button = $ButtonsContainer/Buttons/Confirm
 @onready var cancel_button : Button = $ButtonsContainer/Buttons/Cancel
 
@@ -38,6 +39,7 @@ func _ready():
 	shuugi_column.row_changed.connect(on_score_change)
 	penalty_column.row_changed.connect(on_score_change)
 
+	modify_table_button.pressed.connect(on_modify_table)
 	submit_table_button.pressed.connect(on_submit_table)
 	cancel_button.pressed.connect(on_cancel)
 
@@ -121,6 +123,17 @@ func export() -> Table:
 
 	return new_table
 
+func export_without_scores() -> Table:
+	new_table.player_ids = player_id_column.get_value_arr()
+	new_table.player_seats = seat_wind_column.get_value_arr()
+
+	new_table.final_points = [] 
+	if data_store.tournament.settings.shuugi:
+		new_table.final_shuugi = []
+	new_table.penalties = []
+
+	return new_table
+
 func missing_points() -> int:
 	var players_per_table = 4 if data_store.tournament.settings.game_type == TournamentSettings.GameType.YONMA else 3
 
@@ -174,6 +187,9 @@ func on_score_change() -> void:
 
 func set_player_name(id : int, index : int) -> void:
 	player_name_column.set_text(index, data_store.get_player_name(id))
+
+func on_modify_table() -> void:
+	submit_table.emit(export_without_scores())
 
 func on_submit_table() -> void:
 	submit_table.emit(export())
